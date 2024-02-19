@@ -1,0 +1,24 @@
+# Versioning and metadata
+.git
+.gitignore
+.dockerignore
+
+# Build dependencies
+node_modules
+dist
+
+# Environment (contains sensitive data)
+*.env
+
+# Misc
+.eslintrc.js
+.prettierrc
+docker-compose*.yaml
+Dockerfile
+README*.md
+migrations
+database
+.husky
+.logs
+
+.DS_Store
