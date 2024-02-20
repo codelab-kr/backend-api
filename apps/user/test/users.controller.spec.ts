@@ -1,12 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { User } from '../src/models/user';
+import { User } from '@app/common';
 import { UserController } from '../src/user.controller';
 import { UserService } from '../src/user.service';
-import { CreateUserDto } from '../src/dtos/create.user.dto';
-import { UpdateUserDto } from '../src/dtos/update.user.dto';
-import { LoginUserRequest } from '../src/dtos/login.user.dto';
 import { usertub } from './stubs/user.stub';
 import { UpdateResult } from 'typeorm';
+import { LoginUserRequest } from '../src/dtos/login-user.request';
 
 jest.mock('../src/user.service');
 
@@ -36,15 +34,11 @@ describe('UserController', () => {
 
   describe('createUser', () => {
     describe('when createUser is called', () => {
-      let user: User;
-      let request: CreateUserDto;
+      let user: Partial<User>;
+      let request: User;
 
       beforeEach(async () => {
-        request = {
-          email: usertub().email,
-          password: usertub().password,
-          username: usertub().username,
-        };
+        request = usertub();
         user = await userController.createUser(request);
       });
 
@@ -78,12 +72,12 @@ describe('UserController', () => {
 
   describe('validateUser', () => {
     describe('when validateUser is called', () => {
-      let user: User;
+      let user: Partial<User>;
       let request: LoginUserRequest;
 
       beforeEach(async () => {
         request = {
-          email: usertub().email,
+          id: usertub().id,
           password: usertub().password,
         };
         user = await userController.validateUser(request);
@@ -95,26 +89,6 @@ describe('UserController', () => {
 
       test('then it should return a user', () => {
         expect(user).toEqual(expect.objectContaining(request));
-      });
-    });
-  });
-
-  describe('getUserByEmail', () => {
-    describe('when getUserByEmail is called', () => {
-      let user: User;
-      let email: string;
-
-      beforeEach(async () => {
-        email = usertub().email;
-        user = await userController.getUserByEmail(email);
-      });
-
-      test('then it should call userService', async () => {
-        expect(userService.getUserByEmail).toHaveBeenCalledWith(email);
-      });
-
-      test('then it should return a user', () => {
-        expect(user).toEqual(expect.objectContaining({ email }));
       });
     });
   });
@@ -142,14 +116,10 @@ describe('UserController', () => {
   describe('getOrSaveUser', () => {
     describe('when getOrSaveUser is called', () => {
       let user: User;
-      let request: CreateUserDto;
+      let request: User;
 
       beforeEach(async () => {
-        request = {
-          email: usertub().email,
-          password: usertub().password,
-          username: usertub().username,
-        };
+        request = usertub();
         user = await userController.getOrSaveUser(request);
       });
 
@@ -166,13 +136,13 @@ describe('UserController', () => {
   describe('updateUser', () => {
     describe('when updateUser is called', () => {
       let user: User;
-      let request: UpdateUserDto;
+      let request: Partial<User>;
 
       beforeEach(async () => {
         request = {
           id: usertub().id,
           password: usertub().password,
-          username: usertub().username,
+          name: usertub().name,
         };
         user = await userController.updateUser(request);
       });

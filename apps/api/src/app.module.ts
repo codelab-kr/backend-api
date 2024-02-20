@@ -1,6 +1,5 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
 import { JwtAuthModule, ExceptionModule } from '@app/common';
 import * as Joi from 'joi';
 import { UserModule } from './users/user.module';
@@ -24,14 +23,10 @@ export class AppModule {
     ];
     const AuthModule = JwtAuthModule;
     imports.push(AuthModule);
-    const controllers = [AppController];
-    const providers = [];
 
     return {
       module,
       imports,
-      controllers,
-      providers,
     };
   }
 }

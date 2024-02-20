@@ -9,12 +9,12 @@ import { NATS_SERVICE } from '../../constant/services';
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(@Inject(NATS_SERVICE) private readonly natsService: ClientProxy) {
     // passportStrategy mixin
-    super({ usernameField: 'email' });
+    super({ usernameField: 'id' });
   }
 
-  async validate(email: string, password: string) {
+  async validate(id: string, password: string) {
     const userFound = await lastValueFrom(
-      this.natsService.send({ cmd: 'validateUser' }, { email, password }),
+      this.natsService.send({ cmd: 'validateUser' }, { id, password }),
     );
 
     if (!userFound) {

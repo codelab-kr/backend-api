@@ -2,8 +2,8 @@ import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { NATS_SERVICE, NatsClientService } from '@app/common';
-import { UserController } from '../../src/user/user.controller';
-import { UserService } from '../../src/user/user.sevice';
+import { UserController } from '../../src/users/user.controller';
+import { UserService } from '../../src/users/user.sevice';
 
 // import { CreateUserDto } from '../../src/user/dtos/create-user.dto';
 // import { usertub } from '../../../user/test/stubs/user.stub';
@@ -11,11 +11,6 @@ import { UserService } from '../../src/user/user.sevice';
 // e2e tests: 테스트 데이터베이스를 사용하여 end-to-end 테스트를 수행하기 위해서는
 // 수신대상이 되는 마이크로서비스를 테스트 데이터베이스에 연결한 후 테스트를 수행해야 한다.
 describe('User Microservice (e2e)', () => {
-  // const user = {
-  //   email: usertub().email,
-  //   password: usertub().password,
-  //   username: usertub().username,
-  // };
   let app: INestApplication;
 
   beforeAll(async () => {

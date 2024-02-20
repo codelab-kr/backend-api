@@ -36,7 +36,8 @@ export * from './util/money/currency';
 export * from './message/message';
 
 // enum
-export * from './enum/currencyCode';
+export * from './database/enum/currencyCode';
+export * from './database/enum/idType';
 
 // model
 export * from './database/model/user';

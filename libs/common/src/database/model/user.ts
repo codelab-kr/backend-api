@@ -1,41 +1,46 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
   OneToMany,
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { Quote } from './quote';
 import { Transfer } from './transfer';
+import { IdType } from '../enum/idType';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
 
 @Entity({ name: 'user' })
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id?: string;
+  @IsNotEmpty()
+  @IsEmail()
+  @ApiProperty({ example: 'test@test.com' })
+  @PrimaryColumn()
+  id: string;
 
-  @Column()
-  email: string;
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({ example: 'abcd1234' })
+  password: string;
 
-  @Column({ nullable: true })
-  password?: string;
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({ example: 'test' })
+  name: string;
 
-  @Column()
-  username: string;
+  @IsNotEmpty()
+  @ApiProperty({ example: 'REG_NO' })
+  @Column('enum', { enum: IdType, default: IdType.REG_NO })
+  idType: IdType;
 
-  @Column({ nullable: true })
-  isSubscribed?: boolean;
-
-  @Column({ nullable: true })
-  providerId?: string;
-
-  @Column({ nullable: true })
-  photo?: string;
-
-  @Column({ nullable: true })
-  paymentId?: string;
+  @IsNotEmpty()
+  @Length(13)
+  @ApiProperty({ example: '1111111111111' })
+  idValue: string;
 
   @CreateDateColumn()
   createdAt?: Date;

@@ -1,11 +1,11 @@
 import {
+  HttpException,
+  HttpStatus,
   Injectable,
   InternalServerErrorException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
-import { UpdateUserDto } from './dtos/update.user.dto';
-import { CreateUserDto } from './dtos/create.user.dto';
 import { isEmpty } from 'class-validator';
 import { Message } from '@app/common';
 import { User } from '@app/common';
@@ -15,40 +15,38 @@ import { UserRepository } from './repositories/user.repository';
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async createUser(request: CreateUserDto) {
+  async createUser(request: User) {
     await this.validateCreateUserRequest(request);
     try {
       const seveUser = await this.userRepository.save({
         ...request,
         password: await bcrypt.hash(request.password, 10),
+        idValue: await bcrypt.hash(request.idValue, 10),
       });
       if (!seveUser) {
         throw new InternalServerErrorException(Message.BAD_PARAMETERS);
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...user } = seveUser;
+      const { password, idValue, ...user } = seveUser;
       return user;
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
   }
 
-  private async validateCreateUserRequest(request: CreateUserDto) {
+  private async validateCreateUserRequest(request: User) {
     const user = await this.userRepository.findOneBy({
-      email: request.email,
+      id: request.id,
     });
 
     if (user) {
-      throw new UnprocessableEntityException('Email already exists.');
+      throw new HttpException(Message.BAD_PARAMETERS, HttpStatus.BAD_REQUEST);
     }
   }
 
-  async getUserByEmail(email: string) {
-    return this.userRepository.findOneBy({ email });
-  }
-
   async getUser() {
-    return this.userRepository.find({ relations: ['payments'] });
+    // return this.userRepository.find({ relations: ['payments'] });
+    return this.userRepository.find();
   }
 
   async getUserById(id: string): Promise<User> {
@@ -61,11 +59,14 @@ export class UserService {
     return user;
   }
 
-  async updateUser(request: UpdateUserDto) {
+  async updateUser(request: Partial<User>) {
     const user = await this.getUserById(request.id);
     const updateRequst = { ...user, ...request };
     if (request.password) {
       updateRequst.password = await bcrypt.hash(request.password, 10);
+    }
+    if (request.idValue) {
+      updateRequst.idValue = await bcrypt.hash(request.idValue, 10);
     }
     const updatedResult = await this.userRepository.update(
       updateRequst.id,
@@ -82,9 +83,9 @@ export class UserService {
 
   async validateUser(data: any) {
     // for passport-jwt strategy to validate user
-    if (data.userId) {
+    if (data.id) {
       const user = await this.userRepository.findOneBy({
-        id: data.userId,
+        id: data.id,
       });
       if (!user) {
         return null;
@@ -95,9 +96,9 @@ export class UserService {
     }
 
     // for passport-local strategy to validate user
-    if (data.email && data.password) {
-      const { email, password } = data;
-      const user = await this.userRepository.findOneBy({ email });
+    if (data.id && data.password) {
+      const { id, password } = data;
+      const user = await this.userRepository.findOneBy({ id });
       if (!user) {
         return null;
       }
@@ -110,8 +111,8 @@ export class UserService {
     }
   }
 
-  async getOrSaveUser(data: CreateUserDto) {
-    const foundUser = await this.getUserByEmail(data.email);
+  async getOrSaveUser(data: User) {
+    const foundUser = await this.getUserById(data.id);
     if (foundUser) {
       return foundUser;
     }

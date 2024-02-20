@@ -2,16 +2,14 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
-  // ApiCreatedResponse,
   ApiOkResponse,
   ApiCreatedResponse,
 } from '@nestjs/swagger';
-// import { TransferService } from '../../../temp/transfer.service';
 import { Transfer } from '@app/common';
-// import { CreateTransferInput } from './utils/create.transfer.input';
 import { QuoteService } from './quote.service';
 import { CurrencyCode } from '@app/common';
 import { TransferService } from './transfer.service';
+import { createTransferRequest } from './dtos/request-transfer.dto';
 
 @Controller('transfer')
 @ApiTags('TRANSFER API')
@@ -40,7 +38,8 @@ export class TransferController {
   // 파라미터
   // JWT token
   // quoteId (String) : 채번한 quote의 id
-  async createTransfer(@Body() { quoteId, userId, idType }: any) {
+  async createTransfer(@Body() request: createTransferRequest) {
+    const { quoteId, userId, idType } = request;
     return await this.transferService.createTransfer(quoteId, userId, idType);
   }
 
@@ -49,7 +48,7 @@ export class TransferController {
   @ApiOkResponse({ description: '오늘 TRANSFER를 조회한다.', type: Transfer })
   //파라미터
   // JWT token
-  async findTodayTransfer(@Param('userId') userId: number) {
+  async findTodayTransfer(@Param('userId') userId: string) {
     return await this.transferService.findTransfer(userId);
   }
 }

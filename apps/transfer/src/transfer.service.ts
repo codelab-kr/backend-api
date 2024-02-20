@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Transfer } from '@app/common';
+import { IdType, Transfer } from '@app/common';
 import { Message } from '@app/common';
 import { QuoteService } from './quote.service';
 import { TransferRepository } from './repositories/transfer.repository';
-// import { CreateTransferInput } from './utils/create.quota.input';
 
 @Injectable()
 export class TransferService {
@@ -25,8 +24,8 @@ export class TransferService {
   // 법인 유저의 1일 한도는 $5000 (5천 달러)
   async createTransfer(
     quoteId: number,
-    userId: number,
-    idType: string,
+    userId: string,
+    idType: IdType,
   ): Promise<any> {
     const foundQuote = await this.quoteService.findById(quoteId);
     const { createdAt, usdAmount } = foundQuote;
@@ -72,7 +71,7 @@ export class TransferService {
     return true;
   }
 
-  async findTransfer(userId: number): Promise<any> {
+  async findTransfer(userId: string): Promise<any> {
     const { sum: todayTransferUsdAmount, count: todayTransferCount } =
       await this.findTodayCountAndSum(userId);
     const history = await this.findTransferHistory(userId);
@@ -83,7 +82,7 @@ export class TransferService {
    * 오늘 TRANSFER Transfer 정보를 반환한다.
    *
    */
-  async findTodayCountAndSum(userId: number): Promise<any> {
+  async findTodayCountAndSum(userId: string): Promise<any> {
     const { sum: usdSum, count } = await this.transferRepository
       .createQueryBuilder('transfer')
       .where(
@@ -96,7 +95,7 @@ export class TransferService {
     return { usdSum, count };
   }
 
-  async findTransferHistory(userId: number): Promise<any[]> {
+  async findTransferHistory(userId: string): Promise<any[]> {
     return this.transferRepository
       .createQueryBuilder('transfer')
       .leftJoinAndSelect('transfer.quote', 'quote')

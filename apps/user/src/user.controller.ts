@@ -8,19 +8,12 @@ import {
   Post,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import {
-  MessagePattern,
-  EventPattern,
-  Payload,
-  RpcException,
-} from '@nestjs/microservices';
-import { CreateUserDto } from './dtos/create.user.dto';
-import { LoginUserRequest } from './dtos/login.user.dto';
-import { UpdateUserDto } from './dtos/update.user.dto';
+import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { User } from '@app/common';
+import { LoginUserRequest } from './dtos/login-user.request';
 
 export interface TokenPayload {
-  userId: string;
+  id: string;
 }
 
 @Controller('user')
@@ -29,7 +22,7 @@ export class UserController {
 
   @Post()
   @MessagePattern({ cmd: 'createUser' })
-  async createUser(@Payload() data: CreateUserDto) {
+  async createUser(@Payload() data: User) {
     try {
       return await this.userService.createUser(data);
     } catch (error) {
@@ -48,15 +41,6 @@ export class UserController {
     return await this.userService.getUserById(paramId ?? id);
   }
 
-  @Get(':email')
-  @MessagePattern({ cmd: 'getUserByEmail' })
-  async getUserByEmail(
-    @Payload() email: string,
-    @Param('id') paramEmail?: string,
-  ) {
-    return await this.userService.getUserByEmail(paramEmail ?? email);
-  }
-
   @Get()
   @MessagePattern({ cmd: 'getUser' })
   async getUser(): Promise<User[]> {
@@ -65,20 +49,14 @@ export class UserController {
 
   @Post('get-or-saver')
   @MessagePattern({ cmd: 'getOrSaveUser' })
-  async getOrSaveUser(@Payload() data: CreateUserDto) {
+  async getOrSaveUser(@Payload() data: User) {
     return await this.userService.getOrSaveUser(data);
   }
 
   @Patch()
   @MessagePattern({ cmd: 'updateUser' })
-  updateUser(@Body() request: UpdateUserDto): Promise<any> {
+  updateUser(@Body() request: Partial<User>): Promise<any> {
     return this.userService.updateUser(request);
-  }
-
-  @EventPattern('paymentCreated')
-  handlePaymentCreated(@Payload() data: any): Promise<any> {
-    const { userId: id, id: paymentId } = data;
-    return this.userService.updateUser({ id, paymentId });
   }
 
   @Delete(':id')

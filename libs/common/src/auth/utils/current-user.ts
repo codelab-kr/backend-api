@@ -23,9 +23,11 @@ const addToken = async (userInfo: any) => {
       signOptions: { expiresIn: configService.get('EXPIRESIN') },
     };
     const jwtServiceInstance = new JwtService(jwtModuleOptions);
-    const { id: userId } = userInfo;
+    // const { id: userId } = userInfo;
+    const { id } = userInfo;
     return {
-      access_token: jwtServiceInstance.sign({ userId }),
+      // access_token: jwtServiceInstance.sign({ userId }),
+      access_token: jwtServiceInstance.sign({ id }),
     };
   } catch (error) {
     console.error(error);

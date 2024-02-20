@@ -1,14 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
-import { NATS_SERVICE } from '@app/common';
-import { CreateUserDto } from './dtos/create-user.dto';
-import { UpdateUserDto } from '../../../user/src/dtos/update.user.dto';
+import { NATS_SERVICE, User } from '@app/common';
 
 @Injectable()
 export class UserService {
   constructor(@Inject(NATS_SERVICE) private readonly natsClient: ClientProxy) {}
 
-  createUser(createUserDto: CreateUserDto) {
+  createUser(createUserDto: User) {
     try {
       return this.natsClient.send({ cmd: 'createUser' }, createUserDto);
     } catch (error) {
@@ -32,15 +30,7 @@ export class UserService {
     }
   }
 
-  getUserPayments(userId: string) {
-    try {
-      return this.natsClient.send({ cmd: 'getPaymentByUserId' }, { userId });
-    } catch (error) {
-      throw new RpcException(error);
-    }
-  }
-
-  updateUser(request: UpdateUserDto) {
+  updateUser(request: Partial<User>) {
     try {
       return this.natsClient.send({ cmd: 'updateUser' }, request);
     } catch (error) {

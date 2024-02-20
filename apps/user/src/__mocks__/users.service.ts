@@ -13,7 +13,6 @@ export const UserService = jest.fn().mockReturnValue({
     affected: 1,
   }),
   getUser: jest.fn().mockResolvedValue([usertub()]),
-  getUserByEmail: jest.fn().mockResolvedValue(usertub()),
   getUserById: jest.fn().mockResolvedValue(usertub()),
   validateUser: jest.fn().mockResolvedValue(usertub()),
   getOrSaveUser: jest.fn().mockResolvedValue(usertub()),

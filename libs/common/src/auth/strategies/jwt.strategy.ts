@@ -7,7 +7,8 @@ import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 
 export interface TokenPayload {
-  userId: string;
+  // userId: string;\
+  id: string;
 }
 
 @Injectable()

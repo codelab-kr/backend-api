@@ -1,10 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from '../src/user.service';
 import { UserRepository } from '../src/repositories/user.repository';
-import { User } from '../src/models/user';
+import { User } from '@app/common';
 import { usertub } from './stubs/user.stub';
-import { CreateUserDto } from '../src/dtos/create.user.dto';
-import { UpdateUserDto } from '../src/dtos/update.user.dto';
 import { UnprocessableEntityException } from '@nestjs/common';
 import { UpdateResult } from 'typeorm';
 
@@ -47,14 +45,10 @@ describe('UserService', () => {
 
   describe('createUser', () => {
     describe('when createUser is called', () => {
-      let user: User;
+      let user: Partial<User>;
       let saveSpy: jest.SpyInstance;
 
-      const request: CreateUserDto = {
-        email: usertub().email,
-        password: usertub().password,
-        username: usertub().username,
-      };
+      const request: User = usertub();
 
       beforeEach(async () => {
         userRepository.findOneBy = jest.fn().mockResolvedValue(null);
@@ -147,9 +141,9 @@ describe('UserService', () => {
   describe('updateUser', () => {
     describe('If user do not exist', () => {
       let findSpy: jest.SpyInstance;
-      const request: UpdateUserDto = {
+      const request: Partial<User> = {
         id: usertub().id,
-        username: usertub().username,
+        name: usertub().name,
       };
 
       beforeEach(async () => {
@@ -177,11 +171,11 @@ describe('UserService', () => {
       let updateResulet: any;
       let findSpy: jest.SpyInstance;
       let saveSpy: jest.SpyInstance;
-      let request: UpdateUserDto;
+      let request: Partial<User>;
 
       request = {
         id: usertub().id,
-        username: usertub().username,
+        name: usertub().name,
       };
 
       beforeEach(async () => {

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserRepository } from '../src/repositories/user.repository';
-import { User } from '../src/models/user';
+import { User } from '@app/common';
 import { usertub } from './stubs/user.stub';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
@@ -48,9 +48,9 @@ describe('UserRepository', () => {
 
   it('should create a user', async () => {
     const user = new User();
-    user.email = usertub().email;
+    user.id = usertub().id;
     user.password = usertub().password;
-    user.username = usertub().username;
+    user.name = usertub().name;
 
     saveSpy.mockResolvedValue(user);
     const createdUser = await repository.save(user);
@@ -78,7 +78,7 @@ describe('UserRepository', () => {
 
   it('should update a user', async () => {
     const user = usertub();
-    const updatedUser: User = { ...user, username: 'updated' };
+    const updatedUser: User = { ...user, name: 'updated' };
     saveSpy.mockResolvedValue(user);
     updateSpy.mockResolvedValue(user);
     updateSpy.mockResolvedValue(updatedUser);

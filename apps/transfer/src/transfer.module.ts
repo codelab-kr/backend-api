@@ -23,7 +23,6 @@ import { TransferRepository } from './repositories/transfer.repository';
       TransferRepository,
       QuoteRepository,
       FeeRepository,
-      // UserRepository,
     ]),
     MysqlModule,
     HttpModule,

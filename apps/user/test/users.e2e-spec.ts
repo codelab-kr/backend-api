@@ -8,9 +8,9 @@ import { DataSource } from 'typeorm';
 
 describe('User - /user (e2e)', () => {
   const user = {
-    email: usertub().email,
+    id: usertub().id,
     password: usertub().password,
-    username: usertub().username,
+    name: usertub().name,
   };
 
   const savedUser: any = {};

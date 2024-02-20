@@ -45,11 +45,7 @@ export class QuoteService {
   //  * @param {QuoteUpdateRequestDto} requestDto - QUOTE 수정 Dto
   //  * @returns {Promise<Quote>}
   //  */
-  async createQuote(targetCurrency: string, amount: number) {
-    //Promise<Quote> {
-    //   const quote = await this.findQuoteById(requestDto.id);
-    //   const { userId } = requestDto;
-
+  async createQuote(targetCurrency: string, amount: number): Promise<Quote> {
     // 소수점 자리수는 Java Util Currency에서 제공하는 defaultFractionDigit 값을 이용합니다.
     // TypeScript에서는 Intl.NumberFormat을 사용해서 소수점 자리수를 구할 수 있습니다.
     // (e.g. KRW의 경우 0, JPY의 경우 0, USD의 경우 2)
@@ -121,7 +117,7 @@ export class QuoteService {
     const exchangeRateData = await this.httpService.get(
       'https://quotation-api-cdn.dunamu.com:443/v1/forex/recent?codes=,FRX.KRWUSD,FRX.KRWJPY',
     );
-    console.log('exchangeRateData:', exchangeRateData);
+    // console.log('exchangeRateData:', exchangeRateData);
     if (exchangeRateData?.length < 2) {
       throw new Error('환율 정보 조회에 실패했습니다.');
     }
