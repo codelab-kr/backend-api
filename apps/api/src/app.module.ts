@@ -14,7 +14,7 @@ export class AppModule {
       ConfigModule.forRoot({
         isGlobal: true,
         validationSchema: Joi.object({
-          SERVICE_NAME: Joi.string().required(),
+          SERVICE: Joi.string().required(),
         }),
         cache: true,
         envFilePath: 'apps/api/.env',

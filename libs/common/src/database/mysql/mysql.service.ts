@@ -29,8 +29,11 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       namingStrategy: new CustomNamingStrategy(),
       entities:
         this.nodeEnv === 'test'
-          ? [`./apps/${this.get('SERVICE_NAME')}/src/**/models/*.ts`]
-          : [`./dist/apps/${this.get('SERVICE_NAME')}/src/models/*.js`],
+          ? [`./libs/common/src/database/model/*`]
+          : [`./dist/libs/common/src/database/model/*`],
+      // this.nodeEnv === 'test'
+      //   ? [`./apps/${this.get('SERVICE')}/src/**/models/*.ts`]
+      //   : [`./dist/apps/${this.get('SERVICE')}/src/models/*.js`],
       logging:
         this.nodeEnv === 'production'
           ? ['error']

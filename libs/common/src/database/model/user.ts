@@ -8,7 +8,8 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
 } from 'typeorm';
-import { Payment } from './payment';
+import { Quote } from './quote';
+import { Transfer } from './transfer';
 
 @Entity({ name: 'user' })
 export class User {
@@ -45,7 +46,11 @@ export class User {
   @DeleteDateColumn()
   deletedAt?: Date;
 
-  @OneToMany(() => Payment, (payment) => payment.user)
+  @OneToMany(() => Transfer, (transfer) => transfer.user)
   @JoinColumn()
-  payments?: Payment[];
+  transfers?: Transfer[];
+
+  @OneToMany(() => Quote, (quota) => quota.user)
+  @JoinColumn()
+  quotes?: Quote[];
 }

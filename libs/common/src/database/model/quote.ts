@@ -4,9 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   JoinColumn,
+  ManyToOne,
+  OneToOne,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { CurrencyCode } from '@app/common';
+import { CurrencyCode, Transfer } from '@app/common';
+import { User } from './user';
 
 @Entity({ name: 'quote' })
 export class Quote {
@@ -44,14 +47,16 @@ export class Quote {
 
   @CreateDateColumn()
   @ApiProperty({ description: '견적서 생성일시' })
-  createdAt?: Date;
+  createdAt: Date;
 
   // @Column({ type: 'timestamp', nullable: true })
   // @ApiProperty({ description: '견적서 만료일시' })
   // expireTime: Date;
 
-  @Column('int')
-  @ApiProperty({ description: '사용자 ID' })
+  @ManyToOne(() => User, (user) => user.quotes)
+  user: User;
+
+  @OneToOne(() => Transfer)
   @JoinColumn()
-  userId: number;
+  transfer?: Transfer;
 }

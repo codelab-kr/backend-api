@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { FeeRepository } from './repositories/fee.repository';
-import { Fee } from './models/free';
+import { Fee } from '@app/common';
 import { Brackets } from 'typeorm';
+import { FeeRepository } from './repositories/fee.repository';
 
 @Injectable()
 export class FeeService {

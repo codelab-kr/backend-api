@@ -28,7 +28,7 @@ export * from './config/set.vaildation';
 // constant
 export * from './constant/services';
 
-// utils
+// util
 export * from './util/shared.util';
 export * from './util/money/currency';
 
@@ -37,3 +37,9 @@ export * from './message/message';
 
 // enum
 export * from './enum/currencyCode';
+
+// model
+export * from './database/model/user';
+export * from './database/model/quote';
+export * from './database/model/transfer';
+export * from './database/model/fee';

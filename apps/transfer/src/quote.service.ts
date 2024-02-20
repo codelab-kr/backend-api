@@ -1,10 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { HttpService, getDefaultFractionDigits } from '@app/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpService,
+  Message,
+  getDefaultFractionDigits,
+  isEmpty,
+} from '@app/common';
 import { FeeService } from './fee.service';
-import { QuoteRepository } from './repositories/quote.repository';
 import { DeepPartial } from 'typeorm';
-import { Quote } from './models/quote';
+import { Quote } from '@app/common';
 import { roundToDigits } from '@app/common';
+import { QuoteRepository } from './repositories/quote.repository';
 
 @Injectable()
 export class QuoteService {
@@ -23,15 +28,15 @@ export class QuoteService {
   //   return this.quoteRepository.find({ relations: ['settings'] });
   // }
 
-  // /**
-  //  * QUOTE Id에 해당하는 QUOTE 정보를 조회한다.
-  //  *
-  //  * @param {number} id - QUOTE Id
-  //  * @returns {Promise<QuoteResponseDto>}
-  //  */
-  // findById(id: number): Promise<Quote> {
-  //   return this.findQuoteById(id);
-  // }
+  /**
+   * QUOTE Id에 해당하는 QUOTE 정보를 조회한다.
+   *
+   * @param {number} id - QUOTE Id
+   * @returns {Promise<QuoteResponseDto>}
+   */
+  findById(id: number): Promise<Quote> {
+    return this.findQuoteById(id);
+  }
 
   // /**
   //  * QUOTE Id에 해당하는 QUOTE 정보를 생성한다.
@@ -81,25 +86,22 @@ export class QuoteService {
     return this.quoteRepository.save(createQuote);
   }
 
-  // /**
-  //  * QUOTE Id에 해당하는 QUOTE 정보를 반환한다.
-  //  *
-  //  * @param {number} id - QUOTE Id
-  //  * @returns {Promise<Quote>}
-  //  * @private
-  //  */
-  // private async findQuoteById(id: number): Promise<Quote> {
-  //   const quote = await this.quoteRepository.findOne({
-  //     where: { id },
-  //     relations: ['settings'],
-  //   });
+  /**
+   * QUOTE Id에 해당하는 QUOTE 정보를 반환한다.
+   *
+   * @param {number} id - QUOTE Id
+   * @returns {Promise<Quote>}
+   * @private
+   */
+  private async findQuoteById(id: number): Promise<Quote> {
+    const quote = await this.quoteRepository.findOneBy({ id });
 
-  //   if (isEmpty(quote) === true) {
-  //     throw new NotFoundException(Message.NOT_FOUND_QUOTE);
-  //   }
+    if (isEmpty(quote) === true) {
+      throw new NotFoundException(Message.BAD_PARAMETERS);
+    }
 
-  //   return quote;
-  // }
+    return quote;
+  }
 
   // /**
   //  * QUOTE Id에 해당하는 QUOTE 정보를 삭제한다.

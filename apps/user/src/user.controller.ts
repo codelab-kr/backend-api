@@ -17,7 +17,7 @@ import {
 import { CreateUserDto } from './dtos/create.user.dto';
 import { LoginUserRequest } from './dtos/login.user.dto';
 import { UpdateUserDto } from './dtos/update.user.dto';
-import { User } from './models/user';
+import { User } from '@app/common';
 
 export interface TokenPayload {
   userId: string;

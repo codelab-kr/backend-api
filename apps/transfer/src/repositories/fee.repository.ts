@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { CustomRepository } from '@app/common';
-import { Fee } from '../models/free';
+import { Fee } from '@app/common';
 
 @CustomRepository(Fee)
 export class FeeRepository extends Repository<Fee> {}

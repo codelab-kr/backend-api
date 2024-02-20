@@ -1,4 +1,4 @@
-import { User } from '../../src/models/user';
+import { User } from '@app/common';
 
 export const usertub = (): User => {
   return {
@@ -13,6 +13,5 @@ export const usertub = (): User => {
     createdAt: new Date('2024-01-15 02:26:53.231188'),
     updatedAt: new Date('2024-01-15 02:26:53.231188'),
     deletedAt: null,
-    payments: [],
   };
 };

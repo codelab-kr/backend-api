@@ -1,20 +1,21 @@
 import { Module } from '@nestjs/common';
-import { TransferRepository } from './repositories/transfer.repository';
 import { TransferController } from './transfer.controller';
 import { FeeService } from './fee.service';
 import { TypeOrmExModule, MysqlModule, HttpModule } from '@app/common';
 import { ConfigModule } from '@nestjs/config';
-import { QuoteRepository } from './repositories/quote.repository';
 import { QuoteService } from './quote.service';
 import * as Joi from 'joi';
+import { TransferService } from './transfer.service';
 import { FeeRepository } from './repositories/fee.repository';
+import { QuoteRepository } from './repositories/quote.repository';
+import { TransferRepository } from './repositories/transfer.repository';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        SERVICE_NAME: Joi.string().required(),
+        SERVICE: Joi.string().required(),
       }),
       envFilePath: 'apps/transfer/.env',
     }),
@@ -22,11 +23,12 @@ import { FeeRepository } from './repositories/fee.repository';
       TransferRepository,
       QuoteRepository,
       FeeRepository,
+      // UserRepository,
     ]),
     MysqlModule,
     HttpModule,
   ],
   controllers: [TransferController],
-  providers: [FeeService, QuoteService],
+  providers: [FeeService, QuoteService, TransferService],
 })
 export class TransferModule {}

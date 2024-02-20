@@ -1,22 +1,21 @@
 import { Module } from '@nestjs/common';
-import { UserRepository } from './repositories/user.repository';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { MysqlModule, TypeOrmExModule } from '@app/common';
 import { ConfigModule } from '@nestjs/config';
-import { PaymentsRepository } from './repositories/payments.repository';
 import * as Joi from 'joi';
+import { UserRepository } from './repositories/user.repository';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        SERVICE_NAME: Joi.string().required(),
+        SERVICE: Joi.string().required(),
       }),
       envFilePath: 'apps/user/.env',
     }),
-    TypeOrmExModule.forCustomRepository([UserRepository, PaymentsRepository]),
+    TypeOrmExModule.forCustomRepository([UserRepository]),
     MysqlModule,
   ],
   controllers: [UserController],

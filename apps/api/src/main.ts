@@ -13,14 +13,14 @@ async function bootstrap() {
 
   setSwagger(app);
 
-  const serviceName = conf.get('SERVICE_NAME');
+  const service = conf.get('SERVICE');
   const port = conf.get('PORT') ?? 4000;
   const baseUrl = conf.get('BASE_URL');
 
   app.enableCors();
 
   await app.listen(port, () =>
-    console.log(`${serviceName} Server Listening on ${baseUrl} 🚀  `),
+    console.log(`${service} Server Listening on ${baseUrl} 🚀  `),
   );
 }
 bootstrap();
