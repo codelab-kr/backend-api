@@ -8,7 +8,7 @@ import { UserRepository } from './repositories/user.repository';
 import { UpdateUserDto } from './dtos/update.user.dto';
 import { CreateUserDto } from './dtos/create.user.dto';
 import { isEmpty } from 'class-validator';
-import { UserMessage } from '@app/common';
+import { Message } from '@app/common';
 import { User } from './models/user';
 
 @Injectable()
@@ -23,7 +23,7 @@ export class UserService {
         password: await bcrypt.hash(request.password, 10),
       });
       if (!seveUser) {
-        throw new InternalServerErrorException(UserMessage.CANNOT_CREATE_USER);
+        throw new InternalServerErrorException(Message.BAD_PARAMETERS);
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...user } = seveUser;
@@ -55,7 +55,7 @@ export class UserService {
     const user = await this.userRepository.findOneBy({ id });
 
     if (isEmpty(user) === true) {
-      throw new UnprocessableEntityException(UserMessage.NOT_FOUND_USER);
+      throw new UnprocessableEntityException(Message.BAD_PARAMETERS);
     }
 
     return user;

@@ -4,6 +4,7 @@ import { DataSourceOptions } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { SqlFormatterLogger } from '../../logger/sql.formatter.logger';
 import * as os from 'os';
+import { CustomNamingStrategy } from '../typeorm-ex/typeorm-ex.strategy';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
@@ -25,6 +26,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       username: this.get('DB_USERNAME'),
       password: this.get('DB_PASSWORD'),
       database: this.nodeEnv === 'test' ? 'test' : this.get('DB_NAME'),
+      namingStrategy: new CustomNamingStrategy(),
       entities:
         this.nodeEnv === 'test'
           ? [`./apps/${this.get('SERVICE_NAME')}/src/**/models/*.ts`]

@@ -488,6 +488,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@dinero.js/calculator-number@npm:2.0.0-alpha.14":
+  version: 2.0.0-alpha.14
+  resolution: "@dinero.js/calculator-number@npm:2.0.0-alpha.14"
+  dependencies:
+    "@dinero.js/core": "npm:2.0.0-alpha.14"
+  checksum: 159fcd3318dffc7770451ccc9907e31445840973f697be50eb2dc69da1fe1878dc1fdda59b6468273d046fbfacbfb9af7f0be705e1ca1226a15bd26b8ca19407
+  languageName: node
+  linkType: hard
+
+"@dinero.js/core@npm:2.0.0-alpha.14":
+  version: 2.0.0-alpha.14
+  resolution: "@dinero.js/core@npm:2.0.0-alpha.14"
+  dependencies:
+    "@dinero.js/currencies": "npm:2.0.0-alpha.14"
+  checksum: 038044b214b5c0c008606df67dc804fa9a0ad8c8cb01a4efc6f1c20832566084a240fd8b2e5f77d6d96657ee4676bfedb496a523ebd54b326502acc97c88aafc
+  languageName: node
+  linkType: hard
+
+"@dinero.js/currencies@npm:2.0.0-alpha.14, @dinero.js/currencies@npm:^2.0.0-alpha.14":
+  version: 2.0.0-alpha.14
+  resolution: "@dinero.js/currencies@npm:2.0.0-alpha.14"
+  checksum: ce43a403de3b78ef7347c2574cbbc042ccac4d9f4933c586d43be16a050491ff829c0aa940317adbb86cefa649f9bad8a9d06c941cf69d3d290c25817d89993c
+  languageName: node
+  linkType: hard
+
 "@eslint-community/eslint-utils@npm:^4.2.0, @eslint-community/eslint-utils@npm:^4.4.0":
   version: 4.4.0
   resolution: "@eslint-community/eslint-utils@npm:4.4.0"
@@ -1533,6 +1558,13 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: c582b8420586f3b9550f7e34992cb32be300bc953636f3b087ed9c180ce7ea5c2e4b35090be2d57f0d3168cc3ca1074932907caa2afe09f4e9c84cf5c0daefa8
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4":
+  version: 4.14.202
+  resolution: "@types/lodash@npm:4.14.202"
+  checksum: 6064d43c8f454170841bd67c8266cc9069d9e570a72ca63f06bceb484cb4a3ee60c9c1f305c1b9e3a87826049fd41124b8ef265c4dd08b00f6766609c7fe9973
   languageName: node
   linkType: hard
 
@@ -3366,6 +3398,17 @@ __metadata:
   version: 29.6.3
   resolution: "diff-sequences@npm:29.6.3"
   checksum: 32e27ac7dbffdf2fb0eb5a84efd98a9ad084fbabd5ac9abb8757c6770d5320d2acd172830b28c4add29bb873d59420601dfc805ac4064330ce59b1adfd0593b2
+  languageName: node
+  linkType: hard
+
+"dinero.js@npm:^2.0.0-alpha.14":
+  version: 2.0.0-alpha.14
+  resolution: "dinero.js@npm:2.0.0-alpha.14"
+  dependencies:
+    "@dinero.js/calculator-number": "npm:2.0.0-alpha.14"
+    "@dinero.js/core": "npm:2.0.0-alpha.14"
+    "@dinero.js/currencies": "npm:2.0.0-alpha.14"
+  checksum: be7f6e2d7d423c4463dc8dee84c4366dd9aa8c54d315ab5a1aaf149fd85cd017edfbda840f606f92bac4e9acece7a5a384cb557a9066bcfec04f19e17cacac51
   languageName: node
   linkType: hard
 
@@ -6128,6 +6171,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "microservices-starter@workspace:."
   dependencies:
+    "@dinero.js/currencies": "npm:^2.0.0-alpha.14"
     "@nestjs/axios": "npm:^3.0.1"
     "@nestjs/cli": "npm:^10.3.0"
     "@nestjs/common": "npm:^10.3.0"
@@ -6142,6 +6186,7 @@ __metadata:
     "@nestjs/testing": "npm:^10.3.0"
     "@nestjs/typeorm": "npm:^10.0.1"
     "@types/jest": "npm:^29.5.12"
+    "@types/lodash": "npm:^4"
     "@types/multer": "npm:^1.4.11"
     "@typescript-eslint/eslint-plugin": "npm:^6.20.0"
     "@typescript-eslint/parser": "npm:^6.20.0"
@@ -6151,6 +6196,7 @@ __metadata:
     class-transformer: "npm:^0.5.1"
     class-validator: "npm:^0.14.1"
     cookie-parser: "npm:^1.4.6"
+    dinero.js: "npm:^2.0.0-alpha.14"
     dotenv: "npm:^16.3.1"
     eslint: "npm:^8.56.0"
     eslint-config-prettier: "npm:^9.1.0"
@@ -6161,6 +6207,7 @@ __metadata:
     jest-html-reporter: "npm:^3.10.2"
     joi: "npm:^17.11.0"
     lint-staged: "npm:^15.2.0"
+    lodash: "npm:^4.17.21"
     mysql2: "npm:^3.7.0"
     nats: "npm:^2.19.0"
     passport: "npm:^0.7.0"

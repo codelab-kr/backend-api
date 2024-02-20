@@ -27,6 +27,8 @@ services:
     env_file:
       - ./.env
       - ./apps/user/.env
+    ports:
+      - 4001:4001
     volumes:
       - ./apps/user:/usr/src/app/apps/user:z
       - ./libs/common:/usr/src/app/libs/common:z
@@ -43,6 +45,8 @@ services:
     env_file:
       - ./.env
       - ./apps/transfer/.env
+    ports:
+      - 4002:4002
     volumes:
       - ./apps/transfer:/usr/src/app/apps/transfer:z
       - ./libs/common:/usr/src/app/libs/common:z

@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { NotFoundException } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
-import { TransferService } from '../src/transfer.service';
-import { TransferRepository } from '../src/repositories/transfer.repository';
-import { Transfer } from '../src/models/transfer';
+import { TransferService } from '../quote.service--';
+import { TransferRepository } from '../../apps/transfer/src/repositories/transfer.repository';
+import { Transfer } from '../../apps/transfer/src/models/quote';
 import { transferStub } from './stubs/transfer.stub';
-import { CreateTransferInput } from '../src/utils/create.transfer.input';
-import { UpdateTransferInput } from '../src/utils/update.transfer.ipnput';
+import { CreateTransferInput } from '../../apps/transfer/src/utils/create.transfer.input';
+import { UpdateTransferInput } from '../../apps/transfer/src/utils/update.transfer.ipnput';
 
 describe('TransferService (Stub)', () => {
   let transferService: TransferService;

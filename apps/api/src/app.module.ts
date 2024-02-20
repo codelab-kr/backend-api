@@ -15,7 +15,6 @@ export class AppModule {
         isGlobal: true,
         validationSchema: Joi.object({
           SERVICE_NAME: Joi.string().required(),
-          SESSION_AUTH: Joi.boolean().required(),
         }),
         cache: true,
         envFilePath: 'apps/api/.env',

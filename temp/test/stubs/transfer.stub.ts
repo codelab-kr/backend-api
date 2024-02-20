@@ -1,4 +1,4 @@
-import { Transfer } from '../../src/models/transfer';
+import { Transfer } from '../../../apps/transfer/src/models/quote';
 
 export const transferStub = (): Transfer => {
   return {

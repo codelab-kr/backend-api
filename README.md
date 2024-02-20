@@ -62,6 +62,7 @@ yarn build <마이크로서비스명> 실행 시 nest build  <마이크로서비
 yarn test <마이크로서비스명> 실행 시 jest <마이크로서비스명> 실행됨
 
 마이크로서비스명: user(회원), transfer(송금)
+```
 
 ## 4. Stop the project
 
@@ -71,3 +72,35 @@ docker compose down  -v --rmi all --remove-orphans
 ````
 
 <br>
+
+// TODO: 5. Load the fixtures
+- 기본 데이터 로드
+ex
+  - `docker compose exec api yarn load:fixtures`
+  - 수수료 데이터 로드
+  - `docker compose exec api yarn load:fees`
+
+```bash
+insert into development.fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from, valid_to, is_valid
+  created_at, updated_at, deleted_at)
+values (
+default, 'USD', 1000, 0.0020, 1, 1000000,  '2023-01-01 00:00:00.000000',
+  default, default, null, TRUE, default
+);
+
+insert into development.fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from,
+  created_at, updated_at, valid_to, is_valid, deleted_at)
+values (
+default, 'USD', 3000, 0.0010, 1000000, null,  '2023-01-01 00:00:00.000000',
+  default, default, null, TRUE, default
+);
+
+insert into development.fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from,
+  created_at, updated_at, valid_to, is_valid, deleted_at)
+values (
+default, 'JPY', 3000, 0.0050, 1, null,  '2023-01-01 00:00:00.000000',
+  default, default, null, TRUE, default
+);
+
+
+```  

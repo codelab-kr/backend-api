@@ -1,50 +1,60 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
-  ApiCreatedResponse,
+  // ApiCreatedResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
-import { TransferService } from './transfer.service';
+// import { TransferService } from '../../../temp/transfer.service';
 import { Transfer } from './models/transfer';
-import { CreateTransferInput } from './utils/create.transfer.input';
+// import { CreateTransferInput } from './utils/create.transfer.input';
+import { QuoteService } from './quote.service';
+import { CurrencyCode } from '@app/common';
 
 @Controller('transfer')
 @ApiTags('TRANSFER API')
 export class TransferController {
-  constructor(private readonly transferervice: TransferService) {}
+  constructor(
+    // private readonly transferService: TransferService,
+    private readonly quoteService: QuoteService,
+  ) {}
 
-  @Get()
-  @ApiOperation({ summary: '모든 TRANSFER 조회 API' })
-  @ApiOkResponse({ description: '모든 TRANSFER를 조회한다.', type: Transfer })
-  async findAll() {
-    return await this.transferervice.findAll();
+  // @Get('/fee')
+  // @ApiOperation({ summary: 'FEE 조회 API' })
+  // @ApiOkResponse({ description: 'FEE를 조회한다.', type: Transfer })
+  // async findFee(@Param('id') id: number) {
+  //   return await this.transferService.findFees(+id);
+  // }
+
+  @Get('/quote/:target/:amount')
+  @ApiOperation({ summary: 'QUOTE 조회 API' })
+  @ApiOkResponse({ description: 'QUOTE를 조회한다.', type: Transfer })
+  async getQuote(
+    @Param('target') targetCurrency: CurrencyCode,
+    @Param('amount') amount: number,
+  ) {
+    return await this.quoteService.createQuote(targetCurrency, amount);
   }
 
-  @Get('/:id')
-  @ApiOperation({ summary: 'TRANSFER 조회 API' })
-  @ApiOkResponse({ description: 'TRANSFER을 조회한다.', type: Transfer })
-  async findOne(@Param('id') id: number) {
-    return await this.transferervice.findById(+id);
-  }
+  // @Post('/request')
+  // @ApiOperation({
+  //   summary: 'TRANSFER 생성 API',
+  //   description: 'TRANSFER를 생성한다.',
+  // })
+  // @ApiCreatedResponse({ description: 'TRANSFER를 생성한다.', type: Transfer })
+  // // 파라미터
+  // // JWT token
+  // // quoteId (String) : 채번한 quote의 id
+  // async create(@Body() requestDto: CreateTransferInput) {
+  //   return await this.transferService.createTransfer(requestDto);
+  // }
 
-  @Post()
-  @ApiOperation({
-    summary: 'TRANSFER 생성 API',
-    description: 'TRANSFER를 생성한다.',
-  })
-  @ApiCreatedResponse({ description: 'TRANSFER를 생성한다.', type: Transfer })
-  async create(@Body() requestDto: CreateTransferInput) {
-    return await this.transferervice.createTransfer(requestDto);
-  }
-
-  @Delete('/:id')
-  @ApiOperation({
-    summary: 'TRANSFER 삭제 API',
-    description: 'TRANSFER을 삭제한다.',
-  })
-  @ApiCreatedResponse({ description: 'TRANSFER를 생성한다.', type: Transfer })
-  delete(@Param('id') id: number) {
-    return this.transferervice.deleteTransfer(+id);
-  }
+  // @Get('/list')
+  // @ApiOperation({ summary: '모든 TRANSFER 조회 API' })
+  // @ApiOkResponse({ description: '모든 TRANSFER를 조회한다.', type: Transfer })
+  // //파라미터
+  // // JWT token
+  // async findTodayTransfer() {
+  //   return await this.transferService.findTodayTransfer();
+  // }
 }

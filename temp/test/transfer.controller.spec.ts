@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TransferController } from '../src/transfer.controller';
-import { TransferService } from '../src/transfer.service';
+import { TransferController } from '../../apps/transfer/src/transfer.controller';
+import { TransferService } from '../quote.service--';
 import { transferStub } from './stubs/transfer.stub';
-import { Transfer } from '../src/models/transfer';
-import { CreateTransferInput } from '../src/utils/create.transfer.input';
+import { Transfer } from '../../apps/transfer/src/models/quote';
+import { CreateTransferInput } from '../../apps/transfer/src/utils/create.transfer.input';
 
 jest.mock('../src/transfer.service');
 

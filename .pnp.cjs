@@ -26,6 +26,7 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["@dinero.js/currencies", "npm:2.0.0-alpha.14"],\
           ["@nestjs/axios", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:3.0.1"],\
           ["@nestjs/cli", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:10.3.0"],\
           ["@nestjs/common", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:10.3.1"],\
@@ -40,6 +41,7 @@ const RAW_RUNTIME_STATE =
           ["@nestjs/testing", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:10.3.1"],\
           ["@nestjs/typeorm", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:10.0.1"],\
           ["@types/jest", "npm:29.5.12"],\
+          ["@types/lodash", "npm:4.14.202"],\
           ["@types/multer", "npm:1.4.11"],\
           ["@typescript-eslint/eslint-plugin", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:6.20.0"],\
           ["@typescript-eslint/parser", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:6.20.0"],\
@@ -49,6 +51,7 @@ const RAW_RUNTIME_STATE =
           ["class-transformer", "npm:0.5.1"],\
           ["class-validator", "npm:0.14.1"],\
           ["cookie-parser", "npm:1.4.6"],\
+          ["dinero.js", "npm:2.0.0-alpha.14"],\
           ["dotenv", "npm:16.4.1"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-prettier", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:9.1.0"],\
@@ -59,6 +62,7 @@ const RAW_RUNTIME_STATE =
           ["jest-html-reporter", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:3.10.2"],\
           ["joi", "npm:17.12.1"],\
           ["lint-staged", "npm:15.2.1"],\
+          ["lodash", "npm:4.17.21"],\
           ["mysql2", "npm:3.9.1"],\
           ["nats", "npm:2.19.0"],\
           ["passport", "npm:0.7.0"],\
@@ -969,6 +973,35 @@ const RAW_RUNTIME_STATE =
           ["colorspace", "npm:1.1.4"],\
           ["enabled", "npm:2.0.0"],\
           ["kuler", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dinero.js/calculator-number", [\
+      ["npm:2.0.0-alpha.14", {\
+        "packageLocation": "./.yarn/cache/@dinero.js-calculator-number-npm-2.0.0-alpha.14-4ad999c422-159fcd3318.zip/node_modules/@dinero.js/calculator-number/",\
+        "packageDependencies": [\
+          ["@dinero.js/calculator-number", "npm:2.0.0-alpha.14"],\
+          ["@dinero.js/core", "npm:2.0.0-alpha.14"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dinero.js/core", [\
+      ["npm:2.0.0-alpha.14", {\
+        "packageLocation": "./.yarn/cache/@dinero.js-core-npm-2.0.0-alpha.14-b74db477ee-038044b214.zip/node_modules/@dinero.js/core/",\
+        "packageDependencies": [\
+          ["@dinero.js/core", "npm:2.0.0-alpha.14"],\
+          ["@dinero.js/currencies", "npm:2.0.0-alpha.14"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dinero.js/currencies", [\
+      ["npm:2.0.0-alpha.14", {\
+        "packageLocation": "./.yarn/cache/@dinero.js-currencies-npm-2.0.0-alpha.14-954ff44786-ce43a403de.zip/node_modules/@dinero.js/currencies/",\
+        "packageDependencies": [\
+          ["@dinero.js/currencies", "npm:2.0.0-alpha.14"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2386,6 +2419,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@types/jsonwebtoken", "npm:9.0.5"],\
           ["@types/node", "npm:20.11.14"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/lodash", [\
+      ["npm:4.14.202", {\
+        "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.202-76de3e302b-6064d43c8f.zip/node_modules/@types/lodash/",\
+        "packageDependencies": [\
+          ["@types/lodash", "npm:4.14.202"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4660,6 +4702,18 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/diff-sequences-npm-29.6.3-18ab2c9949-32e27ac7db.zip/node_modules/diff-sequences/",\
         "packageDependencies": [\
           ["diff-sequences", "npm:29.6.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["dinero.js", [\
+      ["npm:2.0.0-alpha.14", {\
+        "packageLocation": "./.yarn/cache/dinero.js-npm-2.0.0-alpha.14-d391bb33c1-be7f6e2d7d.zip/node_modules/dinero.js/",\
+        "packageDependencies": [\
+          ["dinero.js", "npm:2.0.0-alpha.14"],\
+          ["@dinero.js/calculator-number", "npm:2.0.0-alpha.14"],\
+          ["@dinero.js/core", "npm:2.0.0-alpha.14"],\
+          ["@dinero.js/currencies", "npm:2.0.0-alpha.14"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7851,6 +7905,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["microservices-starter", "workspace:."],\
+          ["@dinero.js/currencies", "npm:2.0.0-alpha.14"],\
           ["@nestjs/axios", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:3.0.1"],\
           ["@nestjs/cli", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:10.3.0"],\
           ["@nestjs/common", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:10.3.1"],\
@@ -7865,6 +7920,7 @@ const RAW_RUNTIME_STATE =
           ["@nestjs/testing", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:10.3.1"],\
           ["@nestjs/typeorm", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:10.0.1"],\
           ["@types/jest", "npm:29.5.12"],\
+          ["@types/lodash", "npm:4.14.202"],\
           ["@types/multer", "npm:1.4.11"],\
           ["@typescript-eslint/eslint-plugin", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:6.20.0"],\
           ["@typescript-eslint/parser", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:6.20.0"],\
@@ -7874,6 +7930,7 @@ const RAW_RUNTIME_STATE =
           ["class-transformer", "npm:0.5.1"],\
           ["class-validator", "npm:0.14.1"],\
           ["cookie-parser", "npm:1.4.6"],\
+          ["dinero.js", "npm:2.0.0-alpha.14"],\
           ["dotenv", "npm:16.4.1"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-prettier", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:9.1.0"],\
@@ -7884,6 +7941,7 @@ const RAW_RUNTIME_STATE =
           ["jest-html-reporter", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:3.10.2"],\
           ["joi", "npm:17.12.1"],\
           ["lint-staged", "npm:15.2.1"],\
+          ["lodash", "npm:4.17.21"],\
           ["mysql2", "npm:3.9.1"],\
           ["nats", "npm:2.19.0"],\
           ["passport", "npm:0.7.0"],\
