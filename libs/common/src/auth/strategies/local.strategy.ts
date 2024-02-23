@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { NATS_SERVICE } from '../../constant/services';
 
@@ -13,16 +13,20 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(id: string, password: string) {
-    const userFound = await lastValueFrom(
-      this.natsService.send({ cmd: 'validateUser' }, { id, password }),
-    );
+    try {
+      const userFound = await lastValueFrom(
+        this.natsService.send({ cmd: 'validateUser' }, { id, password }),
+      );
 
-    if (!userFound) {
-      return null;
+      if (!userFound) {
+        return null;
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password: userPassword, ...user } = userFound;
+      return user;
+    } catch (error) {
+      throw new RpcException(error);
     }
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password: userPassword, ...user } = userFound;
-    return user;
   }
 }

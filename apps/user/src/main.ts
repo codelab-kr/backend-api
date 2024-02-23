@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { ValidationPipe } from '@nestjs/common';
 import { UserModule } from './user.module';
 import { ConfigService } from '@nestjs/config';
+import { setValidation } from '@app/common';
 // import { NestExpressApplication } from '@nestjs/platform-express';
 // import { setSwagger } from '@app/common';
 
@@ -17,7 +17,7 @@ async function bootstrap() {
     },
   );
   const service = app.get(ConfigService).get('SERVICE').toUpperCase();
-  app.useGlobalPipes(new ValidationPipe());
+  setValidation(app);
   console.log(`${service} Server Started 🚀  `);
   await app.listen();
 

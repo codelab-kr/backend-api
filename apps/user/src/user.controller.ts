@@ -1,10 +1,10 @@
 import {
-  Body,
+  // Body,
+  // Delete,
+  // Get,
+  // Param,
+  // Patch,
   Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
   Post,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -31,40 +31,44 @@ export class UserController {
   }
 
   @MessagePattern({ cmd: 'validateUser' })
-  validateUser(@Payload() data: LoginUserRequest | TokenPayload) {
-    return this.userService.validateUser(data);
+  async validateUser(@Payload() data: LoginUserRequest | TokenPayload) {
+    try {
+      return await this.userService.validateUser(data);
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 
-  @Get(':id')
-  @MessagePattern({ cmd: 'getUserById' })
-  async getUserById(@Payload() id: string, @Param('id') paramId?: string) {
-    return await this.userService.getUserById(paramId ?? id);
-  }
+  // @Get(':id')
+  // @MessagePattern({ cmd: 'getUserById' })
+  // async getUserById(@Payload() id: string, @Param('id') paramId?: string) {
+  // return await this.userService.getUserById(paramId ?? id);
+  // }
 
-  @Get()
-  @MessagePattern({ cmd: 'getUser' })
-  async getUser(): Promise<User[]> {
-    return await this.userService.getUser();
-  }
+  // @Get()
+  // @MessagePattern({ cmd: 'getUser' })
+  // async getUser(): Promise<User[]> {
+  //   return await this.userService.getUser();
+  // }
 
-  @Post('get-or-saver')
-  @MessagePattern({ cmd: 'getOrSaveUser' })
-  async getOrSaveUser(@Payload() data: User) {
-    return await this.userService.getOrSaveUser(data);
-  }
+  // @Post('get-or-saver')
+  // @MessagePattern({ cmd: 'getOrSaveUser' })
+  // async getOrSaveUser(@Payload() data: User) {
+  //   return await this.userService.getOrSaveUser(data);
+  // }
 
-  @Patch()
-  @MessagePattern({ cmd: 'updateUser' })
-  updateUser(@Body() request: Partial<User>): Promise<any> {
-    return this.userService.updateUser(request);
-  }
+  // @Patch()
+  // @MessagePattern({ cmd: 'updateUser' })
+  // updateUser(@Body() request: Partial<User>): Promise<any> {
+  //   return this.userService.updateUser(request);
+  // }
 
-  @Delete(':id')
-  @MessagePattern({ cmd: 'deleteUser' })
-  deleteUser(
-    @Payload() id: string,
-    @Param('id') paramId?: string,
-  ): Promise<any> {
-    return this.userService.deleteUser(paramId ?? id);
-  }
+  // @Delete(':id')
+  // @MessagePattern({ cmd: 'deleteUser' })
+  // deleteUser(
+  //   @Payload() id: string,
+  //   @Param('id') paramId?: string,
+  // ): Promise<any> {
+  //   return this.userService.deleteUser(paramId ?? id);
+  // }
 }

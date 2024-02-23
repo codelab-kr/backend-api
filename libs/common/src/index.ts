@@ -34,6 +34,7 @@ export * from './util/money/currency';
 
 // massage
 export * from './message/message';
+export * from './message/result';
 
 // enum
 export * from './database/enum/currencyCode';

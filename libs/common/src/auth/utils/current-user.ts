@@ -1,16 +1,17 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { getRequestByContext } from './get.request.by.context';
 import { ConfigService } from '@nestjs/config';
-import { isEmpty } from '../../util/shared.util';
 
 const configService = new ConfigService();
 
 export const CurrentUser = createParamDecorator(
   async (_data: unknown, context: ExecutionContext) => {
     const req = getRequestByContext(context);
-    let userInfo = req.user;
-    userInfo = { ...userInfo, ...(await addToken(userInfo)) };
-    return isEmpty(userInfo) ? null : userInfo;
+    const userInfo = req?.user;
+    if (!userInfo) {
+      return null;
+    }
+    return { ...userInfo, ...(await addToken(userInfo)) };
   },
 );
 
@@ -23,10 +24,8 @@ const addToken = async (userInfo: any) => {
       signOptions: { expiresIn: configService.get('EXPIRESIN') },
     };
     const jwtServiceInstance = new JwtService(jwtModuleOptions);
-    // const { id: userId } = userInfo;
     const { id } = userInfo;
     return {
-      // access_token: jwtServiceInstance.sign({ userId }),
       access_token: jwtServiceInstance.sign({ id }),
     };
   } catch (error) {

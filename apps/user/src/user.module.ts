@@ -3,8 +3,8 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { MysqlModule, TypeOrmExModule } from '@app/common';
 import { ConfigModule } from '@nestjs/config';
-import * as Joi from 'joi';
 import { UserRepository } from './repositories/user.repository';
+import * as Joi from 'joi';
 
 @Module({
   imports: [

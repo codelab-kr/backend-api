@@ -1,13 +1,11 @@
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { NATS_SERVICE } from '../../constant/services';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-
 export interface TokenPayload {
-  // userId: string;\
   id: string;
 }
 
@@ -27,26 +25,24 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
           return authentication;
         },
       ]),
-      // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiresin: false,
       secretOrKey: configService.get('SECRET'),
     });
   }
 
   async validate(payload: any) {
-    let userFound: any;
     try {
-      userFound = await lastValueFrom(
+      const userFound = await lastValueFrom(
         this.natsService.send({ cmd: 'validateUser' }, payload),
       );
+      if (!userFound) {
+        return null;
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password: userPassword, ...user } = userFound;
+      return user;
     } catch (error) {
-      throw new UnauthorizedException('Something went wrong');
+      throw new RpcException(error);
     }
-    if (!userFound) {
-      return null;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password: userPassword, ...user } = userFound;
-    return user;
   }
 }

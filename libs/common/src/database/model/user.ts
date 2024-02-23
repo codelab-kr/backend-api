@@ -12,7 +12,8 @@ import { Quote } from './quote';
 import { Transfer } from './transfer';
 import { IdType } from '../enum/idType';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumberString, IsString } from 'class-validator';
+import { IdValueLength } from '../../decorator/idValueLength';
 
 @Entity({ name: 'user' })
 export class User {
@@ -25,11 +26,13 @@ export class User {
   @IsNotEmpty()
   @IsString()
   @ApiProperty({ example: 'abcd1234' })
+  @Column()
   password: string;
 
   @IsNotEmpty()
   @IsString()
   @ApiProperty({ example: 'test' })
+  @Column()
   name: string;
 
   @IsNotEmpty()
@@ -38,24 +41,29 @@ export class User {
   idType: IdType;
 
   @IsNotEmpty()
-  @Length(13)
+  @IdValueLength('idType')
+  @IsNumberString()
   @ApiProperty({ example: '1111111111111' })
+  @Column()
   idValue: string;
 
+  // @ApiProperty({ description: '생성일시' })
   @CreateDateColumn()
-  createdAt?: Date;
+  createdAt: Date;
 
+  // @ApiProperty({ description: '수정일시' })
   @UpdateDateColumn()
-  updatedAt?: Date;
+  updatedAt: Date;
 
+  // @ApiProperty({ description: '삭제일시' })
   @DeleteDateColumn()
   deletedAt?: Date;
 
   @OneToMany(() => Transfer, (transfer) => transfer.user)
-  @JoinColumn()
+  @JoinColumn({ name: 'transfers_id' }) // TODO: 확인
   transfers?: Transfer[];
 
   @OneToMany(() => Quote, (quota) => quota.user)
-  @JoinColumn()
+  @JoinColumn({ name: 'quotes_id' }) // TODO: 확인
   quotes?: Quote[];
 }

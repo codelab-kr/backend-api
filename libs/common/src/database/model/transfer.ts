@@ -14,34 +14,35 @@ import { User } from './user';
 
 @Entity({ name: 'transfer' })
 export class Transfer {
-  @PrimaryGeneratedColumn()
   @ApiProperty({ description: '송금요청 ID' })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('decimal', { precision: 20, scale: 2 })
   @ApiProperty({ description: 'USD 송금액' })
+  @Column('decimal', { precision: 20, scale: 2 })
   usdAmount: number;
 
-  // @Column('decimal', { precision: 20, scale: 2 })
   // @ApiProperty({ description: '받는 통화 금액' })
+  // @Column('decimal', { precision: 20, scale: 2 })
   // targetAmount: number;
 
-  @CreateDateColumn()
   @ApiProperty({ description: '송금요청일시' })
+  @CreateDateColumn()
   createdAt: Date;
 
-  // @Column('enum', { enum: ['REQUEST', '', 'USD'] })
   // @ApiProperty({ description: '송금응답코드' })
+  // @Column('enum', { enum: ['REQUEST', '', 'USD'] })
   // status: number;
 
-  // @UpdateDateColumn()
   // @ApiProperty({ description: '송금내역 업데이트 일시' })
+  // @UpdateDateColumn()
   // updatedAt?: Date;
 
   @OneToOne(() => Quote)
-  @JoinColumn()
+  @JoinColumn({ name: 'quote_id' }) // TODO: 확인
   quote: Quote;
 
   @ManyToOne(() => User, (user) => user.transfers)
+  @JoinColumn({ name: 'user_id' }) // TODO: 확인
   user: User;
 }

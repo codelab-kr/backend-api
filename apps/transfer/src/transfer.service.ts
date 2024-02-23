@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IdType, Transfer } from '@app/common';
-import { Message } from '@app/common';
+import { IdType, Transfer, Message } from '@app/common';
 import { QuoteService } from './quote.service';
 import { TransferRepository } from './repositories/transfer.repository';
 
@@ -59,7 +58,7 @@ export class TransferService {
   async transferLimitCheck(
     usdAmount: number,
     usdSum: number,
-    idType: string,
+    idType: IdType,
   ): Promise<boolean> {
     if (idType === 'REG_NO' && usdSum + usdAmount > 1000) {
       throw new Error(Message.LIMIT_EXCESS);

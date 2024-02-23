@@ -18,12 +18,16 @@ export class AllExceptionFilter extends BaseExceptionFilter {
   private ExceptionFilter(exception: RpcException | AxiosError) {
     const error =
       exception instanceof RpcException
-        ? exception.getError()
-        : exception.response?.data;
-    this.res = error['response'];
+        ? (exception.getError() as IExceptionResponse)
+        : (exception.response?.data as IExceptionResponse);
+    this.res = {
+      ...error,
+      statusCode: error['status'],
+      timestamp: new Date().toISOString(),
+      data: error['response'],
+    };
   }
 
-  // TODO: Test
   private httpExceptionFilter(exception: HttpException): void {
     this.res = exception.getResponse() as IExceptionResponse;
   }

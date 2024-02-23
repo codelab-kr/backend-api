@@ -11,51 +11,51 @@ import { CurrencyCode } from '@app/common';
 
 @Entity({ name: 'fee' })
 export class Fee {
-  @PrimaryGeneratedColumn()
   @ApiProperty({ description: '수수료 ID' })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'enum', enum: CurrencyCode })
   @ApiProperty({ description: '받는통화코드 (ISO-4217 Currecy Code)' })
+  @Column({ type: 'enum', enum: CurrencyCode })
   targetCurrency: CurrencyCode;
 
-  @Column('int')
   @ApiProperty({ description: '건당수수료' })
+  @Column('int')
   feePerCase: number;
 
-  @Column('decimal', { precision: 5, scale: 4 })
   @ApiProperty({ description: '수수료율' })
+  @Column('decimal', { precision: 5, scale: 4 })
   feeRate: number;
 
-  @Column('int')
   @ApiProperty({ description: '적용시작' })
+  @Column('int')
   amountFrom: number;
 
-  @Column('int', { nullable: true })
   @ApiProperty({ description: '적용종료' })
+  @Column('int', { nullable: true })
   amountTo?: number;
 
-  @Column('date')
   @ApiProperty({ description: '적용시작일시' })
+  @Column('date')
   validFrom: Date;
 
-  @Column('date', { nullable: true })
   @ApiProperty({ description: '적용종료일시' })
+  @Column('date', { nullable: true })
   validTo?: Date;
 
-  @Column('boolean', { default: true })
   @ApiProperty({ description: '적용여부' })
+  @Column('boolean', { default: true })
   isValid: boolean;
 
-  @CreateDateColumn()
   @ApiProperty({ description: '생성일시' })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn()
   @ApiProperty({ description: '수정일시' })
+  @UpdateDateColumn()
   updatedAt?: Date;
 
+  @ApiProperty({ description: '삭제일시' })
   @DeleteDateColumn({ name: 'deleted_at' })
-  @ApiProperty({ description: '수정일시' })
   deletedAt?: Date;
 }

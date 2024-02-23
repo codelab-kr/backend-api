@@ -1,5 +1,4 @@
-import { User } from '@app/common';
-import { IdType } from '@app/common';
+import { User, IdType } from '@app/common';
 
 export const usertub = (): User => {
   return {

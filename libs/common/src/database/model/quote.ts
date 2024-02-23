@@ -13,50 +13,51 @@ import { User } from './user';
 
 @Entity({ name: 'quote' })
 export class Quote {
-  @PrimaryGeneratedColumn()
   @ApiProperty({ description: '견적서 ID' })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('int', { name: 'source_amount' })
   @ApiProperty({ description: '원화 송금 요청액' })
+  @Column('int')
   sourceAmount: number;
 
-  @Column('int')
   @ApiProperty({ description: '송금 수수료' })
+  @Column('int')
   fee: number;
 
-  @Column('decimal', { precision: 10, scale: 2 })
   @ApiProperty({ description: 'USD 환율' })
+  @Column('decimal', { precision: 10, scale: 2 })
   usdExchangeRate: number;
 
-  @Column('decimal', { precision: 20, scale: 2 })
   @ApiProperty({ description: 'USD 송금액' })
+  @Column('decimal', { precision: 20, scale: 2 })
   usdAmount: number;
 
-  @Column({ type: 'enum', enum: CurrencyCode })
   @ApiProperty({ description: '받는통화코드 (ISO-4217 Currecy Code)' })
+  @Column({ type: 'enum', enum: CurrencyCode })
   targetCurrency: CurrencyCode;
 
-  @Column('decimal', { precision: 20, scale: 2 })
   @ApiProperty({ description: '받는 통화 금액' })
+  @Column('decimal', { precision: 20, scale: 2 })
   targetAmount: number;
 
-  @Column('decimal', { precision: 10, scale: 2 })
   @ApiProperty({ description: '받는 통화 환율' })
+  @Column('decimal', { precision: 10, scale: 2 })
   exchangeRate: number;
 
-  @CreateDateColumn()
   @ApiProperty({ description: '견적서 생성일시' })
+  @CreateDateColumn()
   createdAt: Date;
 
-  // @Column({ type: 'timestamp', nullable: true })
   // @ApiProperty({ description: '견적서 만료일시' })
+  // @Column({ type: 'timestamp', nullable: true })
   // expireTime: Date;
 
   @ManyToOne(() => User, (user) => user.quotes)
+  @JoinColumn({ name: 'user_id' }) // TODO: 확인
   user: User;
 
   @OneToOne(() => Transfer)
-  @JoinColumn()
+  @JoinColumn({ name: 'transfer_id' }) // TODO: 확인
   transfer?: Transfer;
 }

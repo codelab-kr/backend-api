@@ -4,9 +4,7 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
-import { isEmpty } from 'class-validator';
-import { Message } from '@app/common';
-import { User } from '@app/common';
+import { User, Message } from '@app/common';
 import { UserRepository } from '../../src/repositories/user.repository';
 
 @Injectable()
@@ -41,40 +39,6 @@ export class UserService {
     }
   }
 
-  async getUser() {
-    // return this.userRepository.find({ relations: ['ids'] });
-    return this.userRepository.find();
-  }
-
-  async getUserById(id: string): Promise<User> {
-    const user = await this.userRepository.findOneBy({ id });
-
-    if (isEmpty(user) === true) {
-      throw new UnprocessableEntityException(Message.BAD_PARAMETERS);
-    }
-
-    return user;
-  }
-
-  async updateUser(request: Partial<User>) {
-    const user = await this.getUserById(request.id);
-    const updateRequst = { ...user, ...request };
-    if (request.password) {
-      updateRequst.password = await bcrypt.hash(request.password, 10);
-    }
-    const updatedResult = await this.userRepository.update(
-      updateRequst.id,
-      updateRequst,
-    );
-
-    return updatedResult;
-  }
-
-  async deleteUser(id: string) {
-    const deletedResult = await this.userRepository.softDelete({ id });
-    return deletedResult;
-  }
-
   async validateUser(data: any) {
     // for passport-jwt strategy to validate user
     if (data.userId) {
@@ -105,11 +69,45 @@ export class UserService {
     }
   }
 
-  async getOrSaveUser(data: User) {
-    const foundUser = await this.getUserById(data.id);
-    if (foundUser) {
-      return foundUser;
-    }
-    return this.userRepository.save(data);
-  }
+  // async getUser() {
+  //   // return this.userRepository.find({ relations: ['ids'] });
+  //   return this.userRepository.find();
+  // }
+
+  // async getUserById(id: string): Promise<User> {
+  //   const user = await this.userRepository.findOneBy({ id });
+
+  //   if (isEmpty(user) === true) {
+  //     throw new UnprocessableEntityException(Message.BAD_PARAMETERS);
+  //   }
+
+  //   return user;
+  // }
+
+  // async updateUser(request: Partial<User>) {
+  //   const user = await this.getUserById(request.id);
+  //   const updateRequst = { ...user, ...request };
+  //   if (request.password) {
+  //     updateRequst.password = await bcrypt.hash(request.password, 10);
+  //   }
+  //   const updatedResult = await this.userRepository.update(
+  //     updateRequst.id,
+  //     updateRequst,
+  //   );
+
+  //   return updatedResult;
+  // }
+
+  // async deleteUser(id: string) {
+  //   const deletedResult = await this.userRepository.softDelete({ id });
+  //   return deletedResult;
+  // }
+
+  // async getOrSaveUser(data: User) {
+  //   const foundUser = await this.getUserById(data.id);
+  //   if (foundUser) {
+  //     return foundUser;
+  //   }
+  //   return this.userRepository.save(data);
+  // }
 }
