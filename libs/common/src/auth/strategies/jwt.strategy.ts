@@ -33,7 +33,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: any) {
     try {
-      console.log('payload', payload);
       const userFound = await lastValueFrom(
         this.natsService.send({ cmd: 'validateUser' }, payload),
       );

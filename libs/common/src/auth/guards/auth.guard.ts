@@ -8,7 +8,6 @@ class JwtAuthGuard extends ForJwtAuthGaurd('jwt') {
     if (err || !user) {
       const req = getRequestByContext(context);
       req.errorData = err;
-      console.log('req.errorData', req.errorData);
       return false;
     }
     return user;

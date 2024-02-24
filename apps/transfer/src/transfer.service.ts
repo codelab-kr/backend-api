@@ -45,12 +45,21 @@ export class TransferService {
       const savedTransfer = await this.transferRepository.save(requestDto);
       return savedTransfer;
     } catch (error) {
-      console.log('error:', error);
       throw error;
     }
   }
 
-  // check transfer limit
+  /**
+   * check transfer limit - Transfer 한도를 체크한다.
+   * - REG_NO: 1000 USD
+   * - BUSINESS_NO: 5000 USD
+   * @param {number} usdAmount - Transfer 요청한 usdAmount
+   * @param {number} usdSum - userId와 date에 해당하는 Transfer 요약 정보의 usdSum
+   * @param {IdType} idType - 사용자 ID Type
+   * @returns {Promise<boolean>}
+   * @throws {HttpException} Transfer 한도 초과시 예외 발생
+   *
+   */
   async transferLimitCheck(
     usdAmount: number,
     usdSum: number,
@@ -66,7 +75,7 @@ export class TransferService {
   }
 
   /**
-   * Transfer 정보를 조회한다.
+   * Transfer 목록을 조회한다.
    *
    * @param {FindTransfersRequest} data - Transfer 조회 Dto
    * @returns {Promise<any>}
@@ -75,12 +84,15 @@ export class TransferService {
   async findTransferList(data: FindTransfersRequest): Promise<any> {
     try {
       const { userId, name, date } = data;
-      const { usdSum, count: todayTransferCount } = await this.findCountAndSum(
-        userId,
-        date,
-      );
-      const todayTransferUsdAmount = roundToDigits(usdSum, 2);
-      const history = await this.findTransferHistory(userId, date);
+      let todayTransferUsdAmount: number = 0,
+        todayTransferCount: number = 0,
+        history = [];
+      const findCountAndSum = await this.findCountAndSum(userId, date);
+      if (findCountAndSum.count > 0) {
+        todayTransferUsdAmount = roundToDigits(findCountAndSum.usdSum, 2);
+        todayTransferCount = findCountAndSum.count;
+        history = await this.findTransferHistory(userId, date);
+      }
       return {
         userId,
         name,

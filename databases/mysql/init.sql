@@ -1,10 +1,10 @@
+-- Path: databases/mysql/init.sql
 GRANT ALL ON *.* TO root@'%';
 CREATE DATABASE IF NOT EXISTS test;
 CREATE USER 'test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'testtest';
 GRANT ALL ON test.* to test@'localhost';
 GRANT ALL ON test.* to test@'%';
 
--- Path: databases/mysql/init.sql
 insert into development.fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from,
   created_at, updated_at, valid_to, is_valid, deleted_at)
 values (

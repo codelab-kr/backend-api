@@ -25,9 +25,9 @@ export class QuoteService {
    * Quote를 생성한다.
    *
    * @param {CreateQuoteRequest} data - Quote 생성 Dto
-   * @returns {Promise<Quote>}
+   * @returns {Promise<any>}
    */
-  async createQuote(data: CreateQuoteRequest): Promise<Quote> {
+  async createQuote(data: CreateQuoteRequest): Promise<any> {
     try {
       const { targetCurrency, amount, userId, idType } = data;
       await this.checkAmount(amount);
@@ -71,21 +71,45 @@ export class QuoteService {
         idType,
       } as DeepPartial<Quote>;
 
-      return await this.quoteRepository.save(quote);
+      const response = await this.quoteRepository.save(quote);
+      if (isEmpty(response) === true) {
+        throw new HttpException(
+          Message.UNKNOWN_ERROR,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+      return {
+        quoteId: response.id,
+        exchangeRate,
+        expireTime: response.expireTime,
+        targetAmount,
+      };
     } catch (error) {
-      console.log('error:', error);
       throw error;
     }
   }
 
-  // 송금액이 0보다 큰지 확인한다.
-  private async checkAmount(amount: number) {
+  /**
+   *  송금액이 0보다 큰지 확인한다.
+   * @param amount
+   * @returns {Promise<void>}
+   * @throws {HttpException} 송금액이 0보다 작을 경우 예외 발생
+   */
+  private async checkAmount(amount: number): Promise<boolean> {
     if (amount < 0) {
       throw new HttpException(Message.NEGATIVE_NUMBER, HttpStatus.BAD_REQUEST);
     }
+    return true;
   }
 
-  // 송금액이 한도 내의 금액인지 확인한다.
+  /**
+   * Quote 한도를 체크한다.
+   * - REG_NO: 1000 USD
+   * - BUSINESS_NO: 5000 USD
+   * @param {number} usdAmount - Quote 요청한 usdAmount
+   * @param {IdType} idType - 사용자 ID Type
+   * @returns {Promise<boolean>}
+   */
   private async quoteLimitCheck(
     usdAmount: number,
     idType: IdType,
@@ -99,7 +123,10 @@ export class QuoteService {
     return true;
   }
 
-  // 환율 정보를 조회한다.
+  /**
+   * 환율 정보를 조회한다.
+   * @returns {Promise<any>}
+   */
   async getExchangeRate(): Promise<any> {
     const exchangeRateData = await this.httpService.get(
       'https://quotation-api-cdn.dunamu.com:443/v1/forex/recent?codes=,FRX.KRWUSD,FRX.KRWJPY',
@@ -122,8 +149,13 @@ export class QuoteService {
     };
   }
 
-  // 수수료 정보를 조회한다.
-  // fee = 보내는금액(amount) * 수수료율(feeRate) + 고정수수료 (feePerCase)
+  /**
+   * 수수료 정보를 조회한다.
+   *  fee = 보내는금액(amount) * 수수료율(feeRate) + 고정수수료 (feePerCase)
+   * @param targetCurrency
+   * @param amount
+   * @returns {Promise<number>}
+   */
   async getFees(targetCurrency: string, amount: number): Promise<number> {
     const feeData = await this.feeService.findFees(targetCurrency, amount);
     const { feePerCase, feeRate } = feeData;
@@ -132,16 +164,19 @@ export class QuoteService {
   }
 
   /**
-   * QUOTE Id에 해당하는 QUOTE 정보를 조회한다.
-   *
-   * @param {number} id - QUOTE Id
+   * QuoteId에 해당하는 Quote 정보를 조회한다.
+   * @param {number} id - QuoteId
    * @returns {Promise<Quote>}
    */
   findById(id: number): Promise<Quote> {
     return this.findQuoteById(id);
   }
 
-  // QUOTE Id에 해당하는 QUOTE 정보를 조회한다.
+  /** 
+  /* QuoteId에 해당하는 Quote 정보를 조회한다.
+  /* @param {number} id - QuoteId
+  /* @returns {Promise<Quote>}
+  */
   private async findQuoteById(id: number): Promise<Quote> {
     const quote = await this.quoteRepository.findOneBy({ id });
 

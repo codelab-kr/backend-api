@@ -40,8 +40,7 @@ export class AllExceptionFilter extends BaseExceptionFilter {
     } else if (exception instanceof HttpException) {
       this.httpExceptionFilter(exception);
     } else {
-      // return new InternalServerErrorException(exception, exception.message);
-      throw new HttpException(
+      return new HttpException(
         Message.UNKNOWN_ERROR,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );

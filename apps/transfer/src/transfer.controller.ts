@@ -39,7 +39,6 @@ export class TransferController {
   @MessagePattern({ cmd: 'findTransferList' })
   async findTransferList(@Payload() data: FindTransfersRequest) {
     try {
-      console.log('data', data);
       return await this.transferService.findTransferList(data);
     } catch (error) {
       throw new RpcException(error);

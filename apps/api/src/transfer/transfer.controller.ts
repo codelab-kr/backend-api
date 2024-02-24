@@ -60,12 +60,10 @@ export class TransferController {
       );
       if (response) {
         const data = { quote: { ...response } };
-        console.log('data', data);
-        res.status(HttpStatus.OK).json(result(HttpStatus.OK, 'OK', data));
+        result(res, HttpStatus.OK, 'OK', data);
       }
     } catch (error) {
-      console.log('error', error);
-      res.status(error.status).json(result(error.status, error.message));
+      result(res, error.status, error.message);
     }
   }
 
@@ -89,11 +87,10 @@ export class TransferController {
         await this.transferService.createTransfer(data),
       );
       if (response) {
-        res.status(HttpStatus.OK).json(result(HttpStatus.OK, 'OK'));
+        result(res, HttpStatus.OK, 'OK');
       }
     } catch (error) {
-      console.log('error', error);
-      res.status(error.status).json(result(error.status, error.message));
+      result(res, error.status, error.message);
     }
   }
 
@@ -110,7 +107,6 @@ export class TransferController {
         );
       }
       const { id: userId, name } = req?.user;
-      console.log('userId', userId);
       const response = await lastValueFrom(
         await this.transferService.findTransferList({
           userId,
@@ -119,11 +115,10 @@ export class TransferController {
         }),
       );
       if (response) {
-        res.status(HttpStatus.OK).json(result(HttpStatus.OK, 'OK', response));
+        result(res, HttpStatus.OK, 'OK', response);
       }
     } catch (error) {
-      console.log('error', error);
-      res.status(error.status).json(result(error.status, error.message));
+      result(res, error.status, error.message);
     }
   }
 }

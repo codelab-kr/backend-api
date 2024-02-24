@@ -7,8 +7,6 @@ RUN yarn install
 RUN yarn build api
 
 
-
-
 FROM node:20.11.1-alpine3.19 AS development
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/ ./

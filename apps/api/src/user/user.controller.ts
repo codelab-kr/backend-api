@@ -38,10 +38,11 @@ export class UserController {
         this.userService.createUser(createUserDto),
       );
       if (response) {
-        res.status(HttpStatus.OK).json(result(HttpStatus.OK, 'OK'));
+        // res.status(HttpStatus.OK).json(result(HttpStatus.OK, 'OK'));
+        result(res, HttpStatus.OK, 'OK');
       }
     } catch (error) {
-      res.status(error.status).json(result(error.status, error.message));
+      result(res, error.status, error.message);
     }
   }
 
@@ -63,11 +64,9 @@ export class UserController {
       res.cookie('Authentication', user?.access_token, {
         maxAge: this.configService.get('EXPIRESIN'),
       });
-      res
-        .status(HttpStatus.OK)
-        .json(result(HttpStatus.OK, 'OK', { token: user?.access_token }));
+      result(res, HttpStatus.OK, 'OK', { token: user?.access_token });
     } catch (error) {
-      res.status(error.status).json(result(error.status, error.message));
+      result(res, error.status, error.message);
     }
   }
 
@@ -78,6 +77,6 @@ export class UserController {
   async logout(@Res() res: Response): Promise<any> {
     res.clearCookie('Authentication');
     res.setHeader('Set-Cookie', `Authentication=; HttpOnly; Path=/; Max-Age=0`);
-    res.status(HttpStatus.OK).json(result(HttpStatus.OK, 'OK'));
+    result(res, HttpStatus.OK, 'OK');
   }
 }

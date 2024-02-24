@@ -63,7 +63,6 @@ export class UserService {
       }
       return userInfo;
     } catch (error) {
-      console.log('error', error);
       throw error;
     }
   }
