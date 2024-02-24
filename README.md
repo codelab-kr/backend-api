@@ -103,6 +103,11 @@ default, 'JPY', 3000, 0.0050, 1, null,  '2023-01-01 00:00:00.000000',
   default, default, null, TRUE, default
 );
 
+# sqlite3
+
+INSERT INTO fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from, valid_to, is_valid, created_at, updated_at, deleted_at) VALUES (1, 'USD', 1000, 0.002, 1, 1000000, '2023-01-01 00:00:00.000000', null, 1, '2023-01-01 00:00:00.000000', '2023-01-01 00:00:00.000000', null);
+INSERT INTO fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from, valid_to, is_valid, created_at, updated_at, deleted_at) VALUES (2, 'USD', 3000, 0.001, 1000000, null, '2023-01-01 00:00:00.000000', null, 1, '2023-01-01 00:00:00.000000', '2023-01-01 00:00:00.000000', null);
+INSERT INTO fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from, valid_to, is_valid, created_at, updated_at, deleted_at) VALUES (3, 'JPY', 3000, 0.005, 1, null, '2023-01-01 00:00:00.000000', null, 1, '2023-01-01 00:00:00.000000', '2023-01-01 00:00:00.000000', null);
 
 
 ```

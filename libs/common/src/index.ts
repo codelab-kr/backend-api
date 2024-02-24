@@ -4,9 +4,9 @@ export * from './auth/guards/auth.guard';
 export * from './auth/utils/current-user';
 export * from './auth/jwt.auth.module';
 
-// database - mysql
-export * from './database/mysql/mysql.module';
-export * from './database/mysql/mysql.service';
+// database - sql
+export * from './database/sql/sql.module';
+export * from './database/sql/sql.service';
 export * from './database/typeorm-ex/typeorm-ex.module';
 export * from './database/typeorm-ex/typeorm-ex.decorator';
 

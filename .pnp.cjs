@@ -47,6 +47,7 @@ const RAW_RUNTIME_STATE =
           ["@types/lodash", "npm:4.14.202"],\
           ["@types/multer", "npm:1.4.11"],\
           ["@types/passport-jwt", "npm:4.0.1"],\
+          ["@types/supertest", "npm:6.0.2"],\
           ["@typescript-eslint/eslint-plugin", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:6.21.0"],\
           ["@typescript-eslint/parser", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:6.21.0"],\
           ["axios", "npm:1.6.7"],\
@@ -69,6 +70,7 @@ const RAW_RUNTIME_STATE =
           ["lodash", "npm:4.17.21"],\
           ["mysql2", "npm:3.9.1"],\
           ["nats", "npm:2.19.0"],\
+          ["node-gyp", "npm:8.4.1"],\
           ["passport", "npm:0.7.0"],\
           ["passport-jwt", "npm:4.0.1"],\
           ["passport-local", "npm:1.0.0"],\
@@ -1670,14 +1672,14 @@ const RAW_RUNTIME_STATE =
     ]],\
     ["@nestjs/core", [\
       ["npm:10.3.3", {\
-        "packageLocation": "./.yarn/cache/@nestjs-core-npm-10.3.3-fc3c3e1c5a-691b3e6dd1.zip/node_modules/@nestjs/core/",\
+        "packageLocation": "./.yarn/unplugged/@nestjs-core-virtual-0272f53b34/node_modules/@nestjs/core/",\
         "packageDependencies": [\
           ["@nestjs/core", "npm:10.3.3"]\
         ],\
         "linkType": "SOFT"\
       }],\
       ["virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:10.3.3", {\
-        "packageLocation": "./.yarn/__virtual__/@nestjs-core-virtual-0272f53b34/0/cache/@nestjs-core-npm-10.3.3-fc3c3e1c5a-691b3e6dd1.zip/node_modules/@nestjs/core/",\
+        "packageLocation": "./.yarn/unplugged/@nestjs-core-virtual-0272f53b34/node_modules/@nestjs/core/",\
         "packageDependencies": [\
           ["@nestjs/core", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:10.3.3"],\
           ["@nestjs/common", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:10.3.3"],\
@@ -2307,6 +2309,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/cookiejar", [\
+      ["npm:2.1.5", {\
+        "packageLocation": "./.yarn/cache/@types-cookiejar-npm-2.1.5-f36531e52d-af38c3d84a.zip/node_modules/@types/cookiejar/",\
+        "packageDependencies": [\
+          ["@types/cookiejar", "npm:2.1.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/eslint", [\
       ["npm:8.56.2", {\
         "packageLocation": "./.yarn/cache/@types-eslint-npm-8.56.2-af13c76cd1-e33ca87a30.zip/node_modules/@types/eslint/",\
@@ -2461,6 +2472,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/methods", [\
+      ["npm:1.1.4", {\
+        "packageLocation": "./.yarn/cache/@types-methods-npm-1.1.4-8565dc8af4-a78534d79c.zip/node_modules/@types/methods/",\
+        "packageDependencies": [\
+          ["@types/methods", "npm:1.1.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/mime", [\
       ["npm:1.3.5", {\
         "packageLocation": "./.yarn/cache/@types-mime-npm-1.3.5-48d28990db-c2ee31cd9b.zip/node_modules/@types/mime/",\
@@ -2577,6 +2597,29 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/@types-stack-utils-npm-2.0.3-48a0a03262-1f4658385a.zip/node_modules/@types/stack-utils/",\
         "packageDependencies": [\
           ["@types/stack-utils", "npm:2.0.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/superagent", [\
+      ["npm:8.1.3", {\
+        "packageLocation": "./.yarn/cache/@types-superagent-npm-8.1.3-3243c53c99-9d1d297fe1.zip/node_modules/@types/superagent/",\
+        "packageDependencies": [\
+          ["@types/superagent", "npm:8.1.3"],\
+          ["@types/cookiejar", "npm:2.1.5"],\
+          ["@types/methods", "npm:1.1.4"],\
+          ["@types/node", "npm:20.11.19"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/supertest", [\
+      ["npm:6.0.2", {\
+        "packageLocation": "./.yarn/cache/@types-supertest-npm-6.0.2-1f239669e4-44a28f9b35.zip/node_modules/@types/supertest/",\
+        "packageDependencies": [\
+          ["@types/supertest", "npm:6.0.2"],\
+          ["@types/methods", "npm:1.1.4"],\
+          ["@types/superagent", "npm:8.1.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6277,7 +6320,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/humanize-ms-npm-1.2.1-e942bd7329-f34a2c2016.zip/node_modules/humanize-ms/",\
         "packageDependencies": [\
           ["humanize-ms", "npm:1.2.1"],\
-          ["ms", "npm:2.1.2"]\
+          ["ms", "npm:2.1.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8000,6 +8043,7 @@ const RAW_RUNTIME_STATE =
           ["@types/lodash", "npm:4.14.202"],\
           ["@types/multer", "npm:1.4.11"],\
           ["@types/passport-jwt", "npm:4.0.1"],\
+          ["@types/supertest", "npm:6.0.2"],\
           ["@typescript-eslint/eslint-plugin", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:6.21.0"],\
           ["@typescript-eslint/parser", "virtual:93e1a5e8a9805bdbc7671038711a79c1e53e24e91fbe898c01cde8f35b1cabae0fae5f81ee75d5b6d6897582035fd7a09356b57c938c87ecd8fcff2cc7ea2685#npm:6.21.0"],\
           ["axios", "npm:1.6.7"],\
@@ -8022,6 +8066,7 @@ const RAW_RUNTIME_STATE =
           ["lodash", "npm:4.17.21"],\
           ["mysql2", "npm:3.9.1"],\
           ["nats", "npm:2.19.0"],\
+          ["node-gyp", "npm:8.4.1"],\
           ["passport", "npm:0.7.0"],\
           ["passport-jwt", "npm:4.0.1"],\
           ["passport-local", "npm:1.0.0"],\
@@ -8455,10 +8500,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["node-abi", [\
-      ["npm:3.54.0", {\
-        "packageLocation": "./.yarn/cache/node-abi-npm-3.54.0-b13bba5e2d-9ebbb21e69.zip/node_modules/node-abi/",\
+      ["npm:3.55.0", {\
+        "packageLocation": "./.yarn/cache/node-abi-npm-3.55.0-ab5bdeaea6-27c445bef9.zip/node_modules/node-abi/",\
         "packageDependencies": [\
-          ["node-abi", "npm:3.54.0"],\
+          ["node-abi", "npm:3.55.0"],\
           ["semver", "npm:7.6.0"]\
         ],\
         "linkType": "HARD"\
@@ -9079,7 +9124,7 @@ const RAW_RUNTIME_STATE =
           ["minimist", "npm:1.2.8"],\
           ["mkdirp-classic", "npm:0.5.3"],\
           ["napi-build-utils", "npm:1.0.2"],\
-          ["node-abi", "npm:3.54.0"],\
+          ["node-abi", "npm:3.55.0"],\
           ["pump", "npm:3.0.0"],\
           ["rc", "npm:1.2.8"],\
           ["simple-get", "npm:4.0.1"],\
@@ -9891,19 +9936,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["socks", [\
-      ["npm:2.7.3", {\
-        "packageLocation": "./.yarn/cache/socks-npm-2.7.3-cda7f744ba-31836d95e4.zip/node_modules/socks/",\
+      ["npm:2.8.1", {\
+        "packageLocation": "./.yarn/cache/socks-npm-2.8.1-3b253d7256-ac77b515c2.zip/node_modules/socks/",\
         "packageDependencies": [\
-          ["socks", "npm:2.7.3"],\
-          ["ip-address", "npm:9.0.5"],\
-          ["smart-buffer", "npm:4.2.0"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["npm:2.8.0", {\
-        "packageLocation": "./.yarn/cache/socks-npm-2.8.0-9be534eccc-208fa5d5ae.zip/node_modules/socks/",\
-        "packageDependencies": [\
-          ["socks", "npm:2.8.0"],\
+          ["socks", "npm:2.8.1"],\
           ["ip-address", "npm:9.0.5"],\
           ["smart-buffer", "npm:4.2.0"]\
         ],\
@@ -9917,7 +9953,7 @@ const RAW_RUNTIME_STATE =
           ["socks-proxy-agent", "npm:6.2.1"],\
           ["agent-base", "npm:6.0.2"],\
           ["debug", "virtual:1ff4b5f90832ba0a9c93ba1223af226e44ba70c1126a3740d93562b97bc36544e896a5e95908196f7458713e6a6089a34bfc67362fc6df7fa093bd06c878be47#npm:4.3.4"],\
-          ["socks", "npm:2.7.3"]\
+          ["socks", "npm:2.8.1"]\
         ],\
         "linkType": "HARD"\
       }],\
@@ -9927,7 +9963,7 @@ const RAW_RUNTIME_STATE =
           ["socks-proxy-agent", "npm:8.0.2"],\
           ["agent-base", "npm:7.1.0"],\
           ["debug", "virtual:1ff4b5f90832ba0a9c93ba1223af226e44ba70c1126a3740d93562b97bc36544e896a5e95908196f7458713e6a6089a34bfc67362fc6df7fa093bd06c878be47#npm:4.3.4"],\
-          ["socks", "npm:2.8.0"]\
+          ["socks", "npm:2.8.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10016,7 +10052,8 @@ const RAW_RUNTIME_STATE =
           ["tar", "npm:6.2.0"]\
         ],\
         "packagePeers": [\
-          "@types/node-gyp"\
+          "@types/node-gyp",\
+          "node-gyp"\
         ],\
         "linkType": "HARD"\
       }]\

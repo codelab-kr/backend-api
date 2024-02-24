@@ -34,7 +34,12 @@ export class Quote {
   usdAmount: number;
 
   @ApiProperty({ description: '받는통화코드 (ISO-4217 Currecy Code)' })
-  @Column({ type: 'enum', enum: CurrencyCode })
+  // @Column({ type: 'enum', enum: CurrencyCode })
+  @Column({
+    type: 'varchar',
+    enum: CurrencyCode,
+    default: CurrencyCode.KRW,
+  })
   targetCurrency: CurrencyCode;
 
   @ApiProperty({ description: '받는 통화 금액' })

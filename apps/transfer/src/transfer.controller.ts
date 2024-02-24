@@ -5,9 +5,8 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
 } from '@nestjs/swagger';
-import { Transfer } from '@app/common';
+import { Transfer, CurrencyCode } from '@app/common';
 import { QuoteService } from './quote.service';
-import { CurrencyCode } from '@app/common';
 import { TransferService } from './transfer.service';
 import { createTransferRequest } from './dtos/request-transfer.dto';
 

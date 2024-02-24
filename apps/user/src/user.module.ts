@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { MysqlModule, TypeOrmExModule } from '@app/common';
+import { SqlModule, TypeOrmExModule } from '@app/common';
 import { ConfigModule } from '@nestjs/config';
 import { UserRepository } from './repositories/user.repository';
 import * as Joi from 'joi';
@@ -16,7 +16,13 @@ import * as Joi from 'joi';
       envFilePath: 'apps/user/.env',
     }),
     TypeOrmExModule.forCustomRepository([UserRepository]),
-    MysqlModule,
+    SqlModule,
+    // TypeOrmModule.forRoot({
+    //   type: 'sqlite',
+    //   database: ':memory:',
+    //   entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    //   synchronize: true,
+    // }),
   ],
   controllers: [UserController],
   providers: [UserService],

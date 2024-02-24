@@ -16,7 +16,12 @@ export class Fee {
   id: number;
 
   @ApiProperty({ description: '받는통화코드 (ISO-4217 Currecy Code)' })
-  @Column({ type: 'enum', enum: CurrencyCode })
+  // @Column({ type: 'enum', enum: CurrencyCode })
+  @Column({
+    type: 'varchar',
+    enum: CurrencyCode,
+    default: CurrencyCode.KRW,
+  })
   targetCurrency: CurrencyCode;
 
   @ApiProperty({ description: '건당수수료' })

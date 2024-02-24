@@ -37,7 +37,12 @@ export class User {
 
   @IsNotEmpty()
   @ApiProperty({ example: 'REG_NO' })
-  @Column('enum', { enum: IdType, default: IdType.REG_NO })
+  // @Column('enum', { enum: IdType, default: IdType.REG_NO })
+  @Column({
+    type: 'varchar',
+    enum: IdType,
+    default: IdType.REG_NO,
+  })
   idType: IdType;
 
   @IsNotEmpty()
