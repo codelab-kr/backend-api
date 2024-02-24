@@ -52,14 +52,9 @@ lerna-debug.log*
 
 .eslintcache
 test-report.html
-
-
 /.env
 /apps/api/.env
-*-secret.md
-*for-me.md
-
 **/secret/*
 **/kyverno/*
 
-public/uploads/videos/*
+

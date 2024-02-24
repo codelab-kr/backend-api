@@ -20,8 +20,6 @@
   > - Docker 25.0.3, build 4debf41
   > - Docker Compose version v2.24.5-desktop.1
 
-빌드 시 혹시 맥이 아닌 운영체제를 고려해야 함???
-
 <br>
 
 ## 1. Unzip the repository
@@ -32,7 +30,7 @@ unzip project.zip
 
 # .env
 cp ./.env.example ./.env
-cp ./apps/api/.env.example ./apps/api/.env && vi ./apps/api/.env
+cp ./apps/api/.env.example ./apps/api/.env && vi ./apps/api/.env # edit JWT_SECRET
 ```
 
 <br>
@@ -43,71 +41,78 @@ cp ./apps/api/.env.example ./apps/api/.env && vi ./apps/api/.env
 # (Optional) Activate Docker BiuldKit Option
 export DOCKER_BUILDKIT=1
 
+# (Optional) build the project
+docker compose build  # 전체 빌드
+docker compose build <마이크로서비스명>  # 마이크로서비스별 빌드(api, user, transfer)
+
 # Start the project
 docker compose up --build -V [-d]
+# -d : Run the project in the background
+# -V : Rebuild the project from scratch
 ```
 
 <br>
 
-## 3. test the project
+## 3. (Optional) Load the fixtures
+
+```bash
+# sqlite db is already exsits in the project
+cd databases/sqlite/development && ls -al
+
+# (Optional) Load the fixtures
+docker-compose exec transfer sh -c "apk --no-cache add sqlite && sqlite3 /usr/src/app/databases/sqlite/development/transfer.sqlite < /usr/src/app/databases/sqlite/init-sqlite.sql"
+```
+
+## 4. test the project
 
 ````bash
 # Test the project
-docker compose exec api yarn test <마이크로서비스명> # ??
-
-단위 테스트 및 빌드는 각 마이크로서비스를 기준으로 실행됩니다.
-
-yarn build <마이크로서비스명> 실행 시 nest build  <마이크로서비스명> 실행됨
-
-yarn test <마이크로서비스명> 실행 시 jest <마이크로서비스명> 실행됨
-
-마이크로서비스명: user(회원), transfer(송금)
+# test user service
+docker compose exec user yarn test user
+# test transfer service
+docker compose exec transfer yarn test transfer # 난리남 ㅠㅠ
 ```
+You can also test the project by browsing to 
+http://localhost:4000/api-docs
 
-## 4. Stop the project
 
+## 5. Stop the project
 ```bash
+# Stop the project
+docker compose down
+
 # Stop all for the project and remove all volumes and orphan containers
 docker compose down  -v --rmi all --remove-orphans
 ````
 
 <br>
 
-// TODO: 5. Load the fixtures
+## 6. About the project
+### 마이크로서비스 아키텍처 구현
+  - Nats Message Server를 사용한 이벤트 기반 마이크로서비스
+  - 각 마이크로서비스 독립적으로 배포 가능
+  
+### Monorepo 구조
+  - Nest.js 프레임워크를 사용한 Monorepo
+  - 공통 모듈을 사용한 코드 재사용
 
-- 기본 데이터 로드
-  ex
-  - `docker compose exec api yarn load:fixtures`
-  - 수수료 데이터 로드
-  - `docker compose exec api yarn load:fees`
+###  Docker & docker-compose 로컬 개발환경
+ - 일관된 개발환경을 위해 도커 컴포즈 사용
+ - 도커 이미지를 사용한 배포 & 운영 고려
 
-```bash
-insert into development.fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from,
-  created_at, updated_at, valid_to, is_valid, deleted_at)
-values (
-default, 'USD', 1000, 0.0020, 1, 1000000,  '2023-01-01 00:00:00.000000',
-  default, default, null, TRUE, default
-);
+### Yarn berry 로 빌드 생산성 향상
+  - Zero-Instalation로 종속성 install 시간 단축
+  - Plug'n'Play로 유령 종속성 제거
 
-insert into development.fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from,
-  created_at, updated_at, valid_to, is_valid, deleted_at)
-values (
-default, 'USD', 3000, 0.0010, 1000000, null,  '2023-01-01 00:00:00.000000',
-  default, default, null, TRUE, default
-);
+### 테스트 코드 작성
+  - 유닛 테스트 코드 작성
+  - 통합 테스트 코드 일부 작성
 
-insert into development.fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from,
-  created_at, updated_at, valid_to, is_valid, deleted_at)
-values (
-default, 'JPY', 3000, 0.0050, 1, null,  '2023-01-01 00:00:00.000000',
-  default, default, null, TRUE, default
-);
+### API 문서화 & 테스트
+  - Swagger를 사용한 API 문서화 및 테스트
 
-# sqlite3
-
-INSERT INTO fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from, valid_to, is_valid, created_at, updated_at, deleted_at) VALUES (1, 'USD', 1000, 0.002, 1, 1000000, '2023-01-01 00:00:00.000000', null, 1, '2023-01-01 00:00:00.000000', '2023-01-01 00:00:00.000000', null);
-INSERT INTO fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from, valid_to, is_valid, created_at, updated_at, deleted_at) VALUES (2, 'USD', 3000, 0.001, 1000000, null, '2023-01-01 00:00:00.000000', null, 1, '2023-01-01 00:00:00.000000', '2023-01-01 00:00:00.000000', null);
-INSERT INTO fee (id, target_currency, fee_per_case, fee_rate, amount_from, amount_to, valid_from, valid_to, is_valid, created_at, updated_at, deleted_at) VALUES (3, 'JPY', 3000, 0.005, 1, null, '2023-01-01 00:00:00.000000', null, 1, '2023-01-01 00:00:00.000000', '2023-01-01 00:00:00.000000', null);
+### 확장을 고려한 설계
+  - 확장을 고려한 데이터베이스 스키마 설계
 
 
-```
+## 7. 요구사항 관련

@@ -17,12 +17,12 @@ import {
   User,
   result,
 } from '@app/common';
-import { LoginUserRequest } from './dtos/login-user.request';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { LoginUserRequest } from '@app/common';
 import { ConfigService } from '@nestjs/config';
 
-@ApiTags('User')
 @Controller('user')
+@ApiTags('USER')
 export class UserController {
   constructor(
     private readonly userService: UserService,
@@ -30,6 +30,7 @@ export class UserController {
   ) {}
 
   @Post('signup')
+  @ApiOperation({ summary: '회원가입' })
   @ApiOkResponse({ description: 'User created' })
   async CreateUser(@Res() res: Response, @Body() createUserDto: User) {
     try {
@@ -46,6 +47,7 @@ export class UserController {
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
+  @ApiOperation({ summary: '로그인' })
   @ApiOkResponse({ description: 'User login' })
   async loginSubmit(
     @Res({ passthrough: true }) res: Response,
@@ -63,7 +65,7 @@ export class UserController {
       });
       res
         .status(HttpStatus.OK)
-        .json({ ...result(HttpStatus.OK, 'OK'), token: user?.access_token });
+        .json(result(HttpStatus.OK, 'OK', { token: user?.access_token }));
     } catch (error) {
       res.status(error.status).json(result(error.status, error.message));
     }
@@ -71,46 +73,11 @@ export class UserController {
 
   @Post('logout')
   @UseGuards(AuthGuard)
+  @ApiOperation({ summary: '로그아웃' })
   @ApiOkResponse({ description: 'User logout' })
   async logout(@Res() res: Response): Promise<any> {
     res.clearCookie('Authentication');
     res.setHeader('Set-Cookie', `Authentication=; HttpOnly; Path=/; Max-Age=0`);
     res.status(HttpStatus.OK).json(result(HttpStatus.OK, 'OK'));
   }
-
-  // @Get()
-  // getUser() {
-  //   try {
-  //     return this.userService.getUser();
-  //   } catch (error) {
-  //     throw new RpcException(error);
-  //   }
-  // }
-
-  // @Get(':id')
-  // getUserById(@Param('id') id: string) {
-  //   try {
-  //     return this.getUserById(id);
-  //   } catch (error) {
-  //     throw new RpcException(error);
-  //   }
-  // }
-
-  // @Patch()
-  // updateUser(@Body() request: Partial<User>) {
-  //   try {
-  //     return this.userService.updateUser(request);
-  //   } catch (error) {
-  //     throw new RpcException(error);
-  //   }
-  // }
-
-  // @Delete(':id')
-  // deleteUser(@Param('id') id: string) {
-  //   try {
-  //     return this.userService.deleteUser(id);
-  //   } catch (error) {
-  //     throw new RpcException(error);
-  //   }
-  // }
 }

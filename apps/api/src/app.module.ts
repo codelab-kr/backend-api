@@ -1,8 +1,9 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtAuthModule, ExceptionModule } from '@app/common';
+import { UserModule } from './user/user.module';
+import { TransferModule } from './transfer/transfer.module';
 import * as Joi from 'joi';
-import { UserModule } from './users/user.module';
 
 @Module({})
 export class AppModule {
@@ -20,6 +21,7 @@ export class AppModule {
       }),
       ExceptionModule,
       UserModule,
+      TransferModule,
     ];
     const AuthModule = JwtAuthModule;
     imports.push(AuthModule);

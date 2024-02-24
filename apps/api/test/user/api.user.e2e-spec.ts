@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { UserModule } from '../../src/users/user.module';
+import { UserModule } from '../../src/user/user.module';
 import { userStub } from '../stubs/user.stub';
 import * as request from 'supertest';
 

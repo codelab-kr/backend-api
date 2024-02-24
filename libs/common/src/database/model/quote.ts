@@ -3,13 +3,9 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  JoinColumn,
-  ManyToOne,
-  OneToOne,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { CurrencyCode, Transfer } from '@app/common';
-import { User } from './user';
+import { CurrencyCode, IdType } from '@app/common';
 
 @Entity({ name: 'quote' })
 export class Quote {
@@ -34,11 +30,11 @@ export class Quote {
   usdAmount: number;
 
   @ApiProperty({ description: '받는통화코드 (ISO-4217 Currecy Code)' })
-  // @Column({ type: 'enum', enum: CurrencyCode })
+  // @Column({ type: 'enum', enum: CurrencyCode }) // for mysql
   @Column({
     type: 'varchar',
     enum: CurrencyCode,
-    default: CurrencyCode.KRW,
+    default: CurrencyCode.USD,
   })
   targetCurrency: CurrencyCode;
 
@@ -54,15 +50,19 @@ export class Quote {
   @CreateDateColumn()
   createdAt: Date;
 
-  // @ApiProperty({ description: '견적서 만료일시' })
-  // @Column({ type: 'timestamp', nullable: true })
-  // expireTime: Date;
+  @ApiProperty({ description: '견적서 만료일시' })
+  @Column()
+  expireTime: Date;
 
-  @ManyToOne(() => User, (user) => user.quotes)
-  @JoinColumn({ name: 'user_id' }) // TODO: 확인
-  user: User;
+  @ApiProperty({ description: '견적서 생성자 ID' })
+  @Column()
+  userId: string;
 
-  @OneToOne(() => Transfer)
-  @JoinColumn({ name: 'transfer_id' }) // TODO: 확인
-  transfer?: Transfer;
+  @ApiProperty({ description: '견적서 생성자 ID 타입' })
+  @Column({
+    type: 'varchar',
+    enum: IdType,
+    default: IdType.REG_NO,
+  })
+  idType: IdType;
 }

@@ -1,5 +1,12 @@
-import { Injectable } from '@nestjs/common';
-import { IdType, Transfer, Message } from '@app/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  IdType,
+  Transfer,
+  Message,
+  roundToDigits,
+  CreateTransferRequest,
+  FindTransfersRequest,
+} from '@app/common';
 import { QuoteService } from './quote.service';
 import { TransferRepository } from './repositories/transfer.repository';
 
@@ -11,108 +18,137 @@ export class TransferService {
   ) {}
 
   /**
-   * TRANSFER Transfer를 생성한다.
+   * Transfer 요청을 생성한다.
    *
-   * @param {CreateTransferInput} requestDto - TRANSFER Transfer를 생성 Dto
+   * @param {CreateTransferRequest} data - Transfer 생성 Dto
    * @returns {Promise<Transfer>}
+   * @throws {HttpException} quote 만료시 예외 발생
+   * @throws {HttpException} Transfer 한도 초과시 예외 발생
+   * @throws {HttpException} Transfer 생성 실패시 예외 발생
    */
+  async createTransfer(data: CreateTransferRequest): Promise<any> {
+    try {
+      const quoteId = +data.quoteId;
+      const foundQuote = await this.quoteService.findById(quoteId);
+      const { expireTime, usdAmount, userId, idType } = foundQuote;
 
-  // 송금요청 생성 (한도 체크 포함하기)
-  // 유저는 미국과 일본으로 송금을 할 수 있어요.
-  // 개인 유저의 1일 한도는 $1000 (1천 달러)
-  // 법인 유저의 1일 한도는 $5000 (5천 달러)
-  async createTransfer(
-    quoteId: number,
-    userId: string,
-    idType: IdType,
-  ): Promise<any> {
-    const foundQuote = await this.quoteService.findById(quoteId);
-    const { createdAt, usdAmount } = foundQuote;
-    if (createdAt.getTime() + 10 * 60 * 1000 < new Date().getTime()) {
-      throw new Error(Message.QUOTE_EXPIRED);
+      // check quote expire
+      if (expireTime.getTime() < new Date().getTime()) {
+        throw new HttpException(Message.QUOTE_EXPIRED, HttpStatus.BAD_REQUEST);
+      }
+
+      // check transfer limit
+      const { usdSum } = await this.findCountAndSum(userId, new Date());
+      await this.transferLimitCheck(usdAmount, usdSum, idType);
+
+      const requestDto = { usdAmount, quoteId, userId };
+      const savedTransfer = await this.transferRepository.save(requestDto);
+      return savedTransfer;
+    } catch (error) {
+      console.log('error:', error);
+      throw error;
     }
-    const { usdSum } = await this.findTodayCountAndSum(userId);
-    await this.transferLimitCheck(usdAmount, usdSum, idType);
+  }
 
-    const requestDto = {
-      usdAmount,
-      quoteId,
-      userId,
-    };
-
-    const savedTransfer = await this.transferRepository.save(requestDto);
-    return savedTransfer;
+  // check transfer limit
+  async transferLimitCheck(
+    usdAmount: number,
+    usdSum: number,
+    idType: IdType,
+  ): Promise<boolean> {
+    if (
+      (idType === IdType.REG_NO && usdSum + usdAmount > 1000) ||
+      (idType === IdType.BUSINESS_NO && usdSum + usdAmount > 5000)
+    ) {
+      throw new HttpException(Message.LIMIT_EXCESS, HttpStatus.BAD_REQUEST);
+    }
+    return true;
   }
 
   /**
-   * TRANSFER Id에 해당하는 TRANSFER Transfer 정보를 반환한다.
+   * Transfer 정보를 조회한다.
    *
-   * @param {number} transferId - TRANSFER Id
+   * @param {FindTransfersRequest} data - Transfer 조회 Dto
+   * @returns {Promise<any>}
+   * @throws {HttpException} Transfer 조회 실패시 예외 발생
+   */
+  async findTransferList(data: FindTransfersRequest): Promise<any> {
+    try {
+      const { userId, name, date } = data;
+      const { usdSum, count: todayTransferCount } = await this.findCountAndSum(
+        userId,
+        date,
+      );
+      const todayTransferUsdAmount = roundToDigits(usdSum, 2);
+      const history = await this.findTransferHistory(userId, date);
+      return {
+        userId,
+        name,
+        todayTransferCount,
+        todayTransferUsdAmount,
+        history,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Transfer Id에 해당하는 Transfer 정보를 반환한다.
+   *
+   * @param {number} transferId
    * @returns {Promise<Transfer>}
    */
   findByTransferId(transferId: number): Promise<Transfer> {
     return this.transferRepository.findOneBy({ id: transferId });
   }
 
-  // 한도체크
-  async transferLimitCheck(
-    usdAmount: number,
-    usdSum: number,
-    idType: IdType,
-  ): Promise<boolean> {
-    if (idType === 'REG_NO' && usdSum + usdAmount > 1000) {
-      throw new Error(Message.LIMIT_EXCESS);
-    }
-
-    if (idType === 'BUSINESS_NO' && usdSum + usdAmount > 5000) {
-      throw new Error(Message.LIMIT_EXCESS);
-    }
-    return true;
-  }
-
-  async findTransfer(userId: string): Promise<any> {
-    const { sum: todayTransferUsdAmount, count: todayTransferCount } =
-      await this.findTodayCountAndSum(userId);
-    const history = await this.findTransferHistory(userId);
-    return { todayTransferUsdAmount, todayTransferCount, history };
-  }
-
   /**
-   * 오늘 TRANSFER Transfer 정보를 반환한다.
+   * userId와 date에 해당하는 Transfer 요약 정보를 반환한다.
    *
+   * @param {string} userId
+   * @param {Date} date
+   * @returns {Promise<any>}
    */
-  async findTodayCountAndSum(userId: string): Promise<any> {
-    const { sum: usdSum, count } = await this.transferRepository
+  private async findCountAndSum(userId: string, date?: Date): Promise<any> {
+    const { usdSum, count } = await this.transferRepository
       .createQueryBuilder('transfer')
       .where(
-        'transfer.user_id = :userId AND DATE(transfer.createdAt) = CURDATE()',
-        { userId },
+        'transfer.user_id = :userId AND DATE(transfer.requestedDate) = DATE(COALESCE(:date, date("now")))', // for sqlite
+        { userId, date },
       )
-      .select('SUM(transfer.usdAmount)', 'sum')
+      .select('SUM(transfer.usdAmount)', 'usdSum')
       .addSelect('COUNT(transfer.id)', 'count')
       .getRawOne();
     return { usdSum, count };
   }
 
-  async findTransferHistory(userId: string): Promise<any[]> {
+  /**
+   * userId와 date에 해당하는 Transfer 정보를 list 형태로 반환한다.
+   *
+   * @param {string} userId
+   * @param {Date} date
+   * @returns {Promise<any>}
+   */
+  async findTransferHistory(userId: string, date?: Date): Promise<any[]> {
     return this.transferRepository
       .createQueryBuilder('transfer')
-      .leftJoinAndSelect('transfer.quote', 'quote')
+      .leftJoinAndSelect('quote', 'quote', 'transfer.quoteId = quote.id')
       .where(
-        'transfer.user_id = :userId AND DATE(transfer.created_at) = CURDATE()',
-        { userId },
+        'transfer.user_id = :userId AND DATE(transfer.requestedDate) = DATE(COALESCE(:date, date("now")))', // for sqlite
+        { userId, date },
       )
       .select([
-        'quote.sourceAmount',
-        'quote.fee',
-        'quote.usdExchangeRate',
-        'quote.usdAmount',
-        'quote.targetCurrency',
-        'quote.exchangeRate',
-        'quote.targetAmount',
-        'transfer.createdAt',
+        'quote.source_amount as sourceAmount',
+        'quote.fee as fee',
+        'quote.usd_exchange_rate as usdExchangeRate',
+        'quote.usd_amount as usdAmount',
+        'quote.target_currency as targetCurrency',
+        'quote.exchange_rate as exchangeRate',
+        'quote.target_amount as targetAmount',
+        'transfer.requested_date as requestedDate',
       ])
-      .orderBy('transfer.created_at', 'ASC')
+      .orderBy('transfer.requestedDate', 'ASC')
       .getRawMany();
   }
 }

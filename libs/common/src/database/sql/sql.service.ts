@@ -24,7 +24,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       database:
         this.nodeEnv === 'test'
           ? ':memory:'
-          : `./databases/sqlite/${this.nodeEnv}.sqlite`,
+          : `./databases/sqlite/${this.nodeEnv}/${this.get('SERVICE')}.sqlite`,
       namingStrategy: new CustomNamingStrategy(),
       entities: [`./dist/libs/common/src/database/model/*`],
       logging:

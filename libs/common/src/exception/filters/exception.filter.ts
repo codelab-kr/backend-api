@@ -2,13 +2,14 @@ import {
   ArgumentsHost,
   Catch,
   HttpException,
-  InternalServerErrorException,
+  HttpStatus,
   Logger,
 } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 import { AxiosError } from 'axios';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { IExceptionResponse } from '../exception.interface';
+import { Message } from '@app/common';
 
 @Catch()
 export class AllExceptionFilter extends BaseExceptionFilter {
@@ -39,7 +40,11 @@ export class AllExceptionFilter extends BaseExceptionFilter {
     } else if (exception instanceof HttpException) {
       this.httpExceptionFilter(exception);
     } else {
-      return new InternalServerErrorException(exception, exception.message);
+      // return new InternalServerErrorException(exception, exception.message);
+      throw new HttpException(
+        Message.UNKNOWN_ERROR,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
     this.logger.error(this.res);
   }

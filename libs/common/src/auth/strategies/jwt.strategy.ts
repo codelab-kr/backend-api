@@ -1,10 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { NATS_SERVICE } from '../../constant/services';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
+
 export interface TokenPayload {
   id: string;
 }
@@ -32,11 +33,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: any) {
     try {
+      console.log('payload', payload);
       const userFound = await lastValueFrom(
         this.natsService.send({ cmd: 'validateUser' }, payload),
       );
+
       if (!userFound) {
-        return null;
+        // return null;
+        throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password: userPassword, ...user } = userFound;

@@ -49,6 +49,7 @@ services:
     volumes:
       - ./apps/transfer:/usr/src/app/apps/transfer:z
       - ./libs/common:/usr/src/app/libs/common:z
+      - ./databases/sqlite:/usr/src/app/databases/sqlite:z
     depends_on:
       - nats
 

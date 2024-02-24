@@ -21,7 +21,7 @@ export class UserService {
         idValue: await bcrypt.hash(request.idValue, 10),
       });
       if (!seveUser) {
-        throw new Error();
+        throw new HttpException(Message.BAD_PARAMETERS, HttpStatus.BAD_REQUEST);
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, idValue, ...user } = seveUser;
@@ -33,26 +33,38 @@ export class UserService {
 
   async validateUser(data: any) {
     try {
-      if (data.id) {
-        const id = data.id;
-        const user = await this.userRepository.findOneBy({ id });
-        if (!user) {
-          // return null;
-          throw new Error();
-        }
-        const { password: hashedPassword, ...userInfo } = user;
-        if (data.password) {
-          const password = data.password;
-          const passwordIsVal = await bcrypt.compare(password, hashedPassword);
-          if (!passwordIsVal) {
-            // return null;
-            throw new Error();
-          }
-        }
-        return userInfo;
+      // for jwt strategy
+      if (!data.id) {
+        return null;
       }
+      const { id } = data;
+      const user = await this.userRepository.findOneBy({ id });
+      if (!user) {
+        // return null;
+        throw new HttpException(
+          Message.INVAILID_TOKEN,
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password: hashedPassword, idValue, ...userInfo } = user;
+
+      // for local strategy
+      if (data.password) {
+        const password = data.password;
+        const passwordIsVal = await bcrypt.compare(password, hashedPassword);
+        if (!passwordIsVal) {
+          // return null;
+          throw new HttpException(
+            Message.BAD_PARAMETERS,
+            HttpStatus.BAD_REQUEST,
+          );
+        }
+      }
+      return userInfo;
     } catch (error) {
-      throw new HttpException(Message.BAD_PARAMETERS, HttpStatus.BAD_REQUEST);
+      console.log('error', error);
+      throw error;
     }
   }
 }

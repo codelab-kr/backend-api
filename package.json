@@ -1,5 +1,5 @@
 {
-  "name": "microservices-starter",
+  "name": "moin-backend",
   "version": "0.0.1",
   "private": true,
   "license": "UNLICENSED",
@@ -16,10 +16,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config jest-e2e.json",
-    "migration:generate": "cd database/mysql/ && NODE_ENV=migration ts-node ../../../node_modules/typeorm/cli.js migration:generate -d ../../../libs/common/src/database/mysql/mayql.data.source.ts",
-    "migration:run": "cd database/mysql/migrations && NODE_ENV=migration ts-node ../../../node_modules/typeorm/cli.js migration:run -d ../../../libs/common/src/database/mysql/mayql.data.source.ts",
-    "migration:revert": "cd database/mysql/migrations && NODE_ENV=migration ts-node ../../../node_modules/typeorm/cli.js migration:revert -d ../../../libs/common/src/database/mysql/mayql.data.source.ts"
+    "test:e2e": "jest --config jest-e2e.json"
   },
   "dependencies": {
     "@dinero.js/currencies": "^2.0.0-alpha.14",
@@ -68,6 +65,7 @@
     "@types/lodash": "^4",
     "@types/multer": "^1.4.11",
     "@types/passport-jwt": "^4.0.1",
+    "@types/passport-local": "^1.0.38",
     "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
