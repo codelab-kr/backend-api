@@ -26,7 +26,6 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
-          ["@dinero.js/currencies", "npm:2.0.0-alpha.14"],\
           ["@nestjs/axios", "virtual:58cae7d5d17361a2ef2bf300422f3b52c04a96a2deb10826121d23aeecc0b85bab3550a379000286d0710c4b34ec8c04431e36b0dbb3974b7917026287eeaf31#npm:3.0.2"],\
           ["@nestjs/cli", "virtual:58cae7d5d17361a2ef2bf300422f3b52c04a96a2deb10826121d23aeecc0b85bab3550a379000286d0710c4b34ec8c04431e36b0dbb3974b7917026287eeaf31#npm:10.3.2"],\
           ["@nestjs/common", "virtual:58cae7d5d17361a2ef2bf300422f3b52c04a96a2deb10826121d23aeecc0b85bab3550a379000286d0710c4b34ec8c04431e36b0dbb3974b7917026287eeaf31#npm:10.3.3"],\
@@ -45,7 +44,6 @@ const RAW_RUNTIME_STATE =
           ["@types/jest", "npm:29.5.12"],\
           ["@types/joi", "npm:17.2.3"],\
           ["@types/lodash", "npm:4.14.202"],\
-          ["@types/multer", "npm:1.4.11"],\
           ["@types/passport-jwt", "npm:4.0.1"],\
           ["@types/passport-local", "npm:1.0.38"],\
           ["@types/supertest", "npm:6.0.2"],\
@@ -57,8 +55,6 @@ const RAW_RUNTIME_STATE =
           ["class-transformer", "npm:0.5.1"],\
           ["class-validator", "npm:0.14.1"],\
           ["cookie-parser", "npm:1.4.6"],\
-          ["dinero.js", "npm:2.0.0-alpha.14"],\
-          ["dotenv", "npm:16.4.5"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-prettier", "virtual:58cae7d5d17361a2ef2bf300422f3b52c04a96a2deb10826121d23aeecc0b85bab3550a379000286d0710c4b34ec8c04431e36b0dbb3974b7917026287eeaf31#npm:9.1.0"],\
           ["eslint-plugin-prettier", "virtual:58cae7d5d17361a2ef2bf300422f3b52c04a96a2deb10826121d23aeecc0b85bab3550a379000286d0710c4b34ec8c04431e36b0dbb3974b7917026287eeaf31#npm:5.1.3"],\
@@ -69,7 +65,6 @@ const RAW_RUNTIME_STATE =
           ["joi", "npm:17.12.1"],\
           ["lint-staged", "npm:15.2.2"],\
           ["lodash", "npm:4.17.21"],\
-          ["mysql2", "npm:3.9.1"],\
           ["nats", "npm:2.19.0"],\
           ["node-gyp", "npm:8.4.1"],\
           ["passport", "npm:0.7.0"],\
@@ -980,35 +975,6 @@ const RAW_RUNTIME_STATE =
           ["colorspace", "npm:1.1.4"],\
           ["enabled", "npm:2.0.0"],\
           ["kuler", "npm:2.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@dinero.js/calculator-number", [\
-      ["npm:2.0.0-alpha.14", {\
-        "packageLocation": "./.yarn/cache/@dinero.js-calculator-number-npm-2.0.0-alpha.14-4ad999c422-159fcd3318.zip/node_modules/@dinero.js/calculator-number/",\
-        "packageDependencies": [\
-          ["@dinero.js/calculator-number", "npm:2.0.0-alpha.14"],\
-          ["@dinero.js/core", "npm:2.0.0-alpha.14"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@dinero.js/core", [\
-      ["npm:2.0.0-alpha.14", {\
-        "packageLocation": "./.yarn/cache/@dinero.js-core-npm-2.0.0-alpha.14-b74db477ee-038044b214.zip/node_modules/@dinero.js/core/",\
-        "packageDependencies": [\
-          ["@dinero.js/core", "npm:2.0.0-alpha.14"],\
-          ["@dinero.js/currencies", "npm:2.0.0-alpha.14"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@dinero.js/currencies", [\
-      ["npm:2.0.0-alpha.14", {\
-        "packageLocation": "./.yarn/cache/@dinero.js-currencies-npm-2.0.0-alpha.14-954ff44786-ce43a403de.zip/node_modules/@dinero.js/currencies/",\
-        "packageDependencies": [\
-          ["@dinero.js/currencies", "npm:2.0.0-alpha.14"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2487,16 +2453,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/@types-mime-npm-1.3.5-48d28990db-c2ee31cd9b.zip/node_modules/@types/mime/",\
         "packageDependencies": [\
           ["@types/mime", "npm:1.3.5"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/multer", [\
-      ["npm:1.4.11", {\
-        "packageLocation": "./.yarn/cache/@types-multer-npm-1.4.11-a023fdbf13-ace8e9f5ac.zip/node_modules/@types/multer/",\
-        "packageDependencies": [\
-          ["@types/multer", "npm:1.4.11"],\
-          ["@types/express", "npm:4.17.21"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4753,15 +4709,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["denque", [\
-      ["npm:2.1.0", {\
-        "packageLocation": "./.yarn/cache/denque-npm-2.1.0-578d0b6297-f9ef81aa0a.zip/node_modules/denque/",\
-        "packageDependencies": [\
-          ["denque", "npm:2.1.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["depd", [\
       ["npm:2.0.0", {\
         "packageLocation": "./.yarn/cache/depd-npm-2.0.0-b6c51a4b43-58bd06ec20.zip/node_modules/depd/",\
@@ -4814,18 +4761,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/diff-sequences-npm-29.6.3-18ab2c9949-32e27ac7db.zip/node_modules/diff-sequences/",\
         "packageDependencies": [\
           ["diff-sequences", "npm:29.6.3"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["dinero.js", [\
-      ["npm:2.0.0-alpha.14", {\
-        "packageLocation": "./.yarn/cache/dinero.js-npm-2.0.0-alpha.14-d391bb33c1-be7f6e2d7d.zip/node_modules/dinero.js/",\
-        "packageDependencies": [\
-          ["dinero.js", "npm:2.0.0-alpha.14"],\
-          ["@dinero.js/calculator-number", "npm:2.0.0-alpha.14"],\
-          ["@dinero.js/core", "npm:2.0.0-alpha.14"],\
-          ["@dinero.js/currencies", "npm:2.0.0-alpha.14"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5917,16 +5852,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["generate-function", [\
-      ["npm:2.3.1", {\
-        "packageLocation": "./.yarn/cache/generate-function-npm-2.3.1-c839dc559c-4645cf1da9.zip/node_modules/generate-function/",\
-        "packageDependencies": [\
-          ["generate-function", "npm:2.3.1"],\
-          ["is-property", "npm:1.0.2"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["gensync", [\
       ["npm:1.0.0-beta.2", {\
         "packageLocation": "./.yarn/cache/gensync-npm-1.0.0-beta.2-224666d72f-782aba6cba.zip/node_modules/gensync/",\
@@ -6656,15 +6581,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/is-path-inside-npm-3.0.3-2ea0ef44fd-cf7d4ac35f.zip/node_modules/is-path-inside/",\
         "packageDependencies": [\
           ["is-path-inside", "npm:3.0.3"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["is-property", [\
-      ["npm:1.0.2", {\
-        "packageLocation": "./.yarn/cache/is-property-npm-1.0.2-6eac53b30e-33ab65a136.zip/node_modules/is-property/",\
-        "packageDependencies": [\
-          ["is-property", "npm:1.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7834,15 +7750,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["long", [\
-      ["npm:5.2.3", {\
-        "packageLocation": "./.yarn/cache/long-npm-5.2.3-61dddb7586-6a0da658f5.zip/node_modules/long/",\
-        "packageDependencies": [\
-          ["long", "npm:5.2.3"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["lru-cache", [\
       ["npm:10.2.0", {\
         "packageLocation": "./.yarn/cache/lru-cache-npm-10.2.0-b9f6b44740-c9847612aa.zip/node_modules/lru-cache/",\
@@ -7864,20 +7771,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["lru-cache", "npm:6.0.0"],\
           ["yallist", "npm:4.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["npm:7.18.3", {\
-        "packageLocation": "./.yarn/cache/lru-cache-npm-7.18.3-e68be5b11c-b3a452b491.zip/node_modules/lru-cache/",\
-        "packageDependencies": [\
-          ["lru-cache", "npm:7.18.3"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["npm:8.0.5", {\
-        "packageLocation": "./.yarn/cache/lru-cache-npm-8.0.5-bb030cd93e-cd95a9c384.zip/node_modules/lru-cache/",\
-        "packageDependencies": [\
-          ["lru-cache", "npm:8.0.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8277,7 +8170,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["moin-backend", "workspace:."],\
-          ["@dinero.js/currencies", "npm:2.0.0-alpha.14"],\
           ["@nestjs/axios", "virtual:58cae7d5d17361a2ef2bf300422f3b52c04a96a2deb10826121d23aeecc0b85bab3550a379000286d0710c4b34ec8c04431e36b0dbb3974b7917026287eeaf31#npm:3.0.2"],\
           ["@nestjs/cli", "virtual:58cae7d5d17361a2ef2bf300422f3b52c04a96a2deb10826121d23aeecc0b85bab3550a379000286d0710c4b34ec8c04431e36b0dbb3974b7917026287eeaf31#npm:10.3.2"],\
           ["@nestjs/common", "virtual:58cae7d5d17361a2ef2bf300422f3b52c04a96a2deb10826121d23aeecc0b85bab3550a379000286d0710c4b34ec8c04431e36b0dbb3974b7917026287eeaf31#npm:10.3.3"],\
@@ -8296,7 +8188,6 @@ const RAW_RUNTIME_STATE =
           ["@types/jest", "npm:29.5.12"],\
           ["@types/joi", "npm:17.2.3"],\
           ["@types/lodash", "npm:4.14.202"],\
-          ["@types/multer", "npm:1.4.11"],\
           ["@types/passport-jwt", "npm:4.0.1"],\
           ["@types/passport-local", "npm:1.0.38"],\
           ["@types/supertest", "npm:6.0.2"],\
@@ -8308,8 +8199,6 @@ const RAW_RUNTIME_STATE =
           ["class-transformer", "npm:0.5.1"],\
           ["class-validator", "npm:0.14.1"],\
           ["cookie-parser", "npm:1.4.6"],\
-          ["dinero.js", "npm:2.0.0-alpha.14"],\
-          ["dotenv", "npm:16.4.5"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-prettier", "virtual:58cae7d5d17361a2ef2bf300422f3b52c04a96a2deb10826121d23aeecc0b85bab3550a379000286d0710c4b34ec8c04431e36b0dbb3974b7917026287eeaf31#npm:9.1.0"],\
           ["eslint-plugin-prettier", "virtual:58cae7d5d17361a2ef2bf300422f3b52c04a96a2deb10826121d23aeecc0b85bab3550a379000286d0710c4b34ec8c04431e36b0dbb3974b7917026287eeaf31#npm:5.1.3"],\
@@ -8320,7 +8209,6 @@ const RAW_RUNTIME_STATE =
           ["joi", "npm:17.12.1"],\
           ["lint-staged", "npm:15.2.2"],\
           ["lodash", "npm:4.17.21"],\
-          ["mysql2", "npm:3.9.1"],\
           ["nats", "npm:2.19.0"],\
           ["node-gyp", "npm:8.4.1"],\
           ["passport", "npm:0.7.0"],\
@@ -8405,23 +8293,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["mysql2", [\
-      ["npm:3.9.1", {\
-        "packageLocation": "./.yarn/cache/mysql2-npm-3.9.1-1049baaff2-d37a1f8776.zip/node_modules/mysql2/",\
-        "packageDependencies": [\
-          ["mysql2", "npm:3.9.1"],\
-          ["denque", "npm:2.1.0"],\
-          ["generate-function", "npm:2.3.1"],\
-          ["iconv-lite", "npm:0.6.3"],\
-          ["long", "npm:5.2.3"],\
-          ["lru-cache", "npm:8.0.5"],\
-          ["named-placeholders", "npm:1.1.3"],\
-          ["seq-queue", "npm:0.0.5"],\
-          ["sqlstring", "npm:2.3.3"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["mz", [\
       ["npm:2.7.0", {\
         "packageLocation": "./.yarn/cache/mz-npm-2.7.0-ec3cef4ec2-103114e93f.zip/node_modules/mz/",\
@@ -8430,16 +8301,6 @@ const RAW_RUNTIME_STATE =
           ["any-promise", "npm:1.3.0"],\
           ["object-assign", "npm:4.1.1"],\
           ["thenify-all", "npm:1.6.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["named-placeholders", [\
-      ["npm:1.1.3", {\
-        "packageLocation": "./.yarn/cache/named-placeholders-npm-1.1.3-1b385febe5-cd83b4bbdf.zip/node_modules/named-placeholders/",\
-        "packageDependencies": [\
-          ["named-placeholders", "npm:1.1.3"],\
-          ["lru-cache", "npm:7.18.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -9735,15 +9596,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["seq-queue", [\
-      ["npm:0.0.5", {\
-        "packageLocation": "./.yarn/cache/seq-queue-npm-0.0.5-d5064d9793-ec870fc392.zip/node_modules/seq-queue/",\
-        "packageDependencies": [\
-          ["seq-queue", "npm:0.0.5"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["serialize-javascript", [\
       ["npm:6.0.2", {\
         "packageLocation": "./.yarn/cache/serialize-javascript-npm-6.0.2-cc09461d45-2dd09ef4b6.zip/node_modules/serialize-javascript/",\
@@ -10068,15 +9920,6 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@types/node-gyp",\
           "node-gyp"\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["sqlstring", [\
-      ["npm:2.3.3", {\
-        "packageLocation": "./.yarn/cache/sqlstring-npm-2.3.3-2db6939570-3b5dd7badb.zip/node_modules/sqlstring/",\
-        "packageDependencies": [\
-          ["sqlstring", "npm:2.3.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10839,7 +10682,7 @@ const RAW_RUNTIME_STATE =
           ["mkdirp", "npm:2.1.6"],\
           ["mongodb", null],\
           ["mssql", null],\
-          ["mysql2", "npm:3.9.1"],\
+          ["mysql2", null],\
           ["oracledb", null],\
           ["pg", null],\
           ["pg-native", null],\

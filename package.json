@@ -19,7 +19,6 @@
     "test:e2e": "jest --config jest-e2e.json"
   },
   "dependencies": {
-    "@dinero.js/currencies": "^2.0.0-alpha.14",
     "@nestjs/axios": "^3.0.1",
     "@nestjs/common": "^10.3.0",
     "@nestjs/config": "^3.1.1",
@@ -36,12 +35,9 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cookie-parser": "^1.4.6",
-    "dinero.js": "^2.0.0-alpha.14",
-    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "joi": "^17.11.0",
     "lodash": "^4.17.21",
-    "mysql2": "^3.7.0",
     "nats": "^2.19.0",
     "node-gyp": "^8.0.0",
     "passport": "^0.7.0",
@@ -63,7 +59,6 @@
     "@types/jest": "^29.5.12",
     "@types/joi": "^17.2.3",
     "@types/lodash": "^4",
-    "@types/multer": "^1.4.11",
     "@types/passport-jwt": "^4.0.1",
     "@types/passport-local": "^1.0.38",
     "@types/supertest": "^6.0.2",
