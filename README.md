@@ -37,39 +37,6 @@
     - 종속성 분리로 서비스 증가 시 유연하게 확장 가능
 
 <br>
-
-## 요구사항 관련
-
-### database 테이블 스키마 id 부여
-
-- 각 테이블에 id를 부여하여 데이터를 식별할 수 있도록 함
-- id는 primary key로 자동으로 증가하도록 설정
-- 요구사항 중 userId (이메일) 컬럼에 경우
-  userId 컬럼과 user.id 의 혼동을 방지하기 위해 id pk로 유지하고 이메일 값을 받아 해당 유저의 식별자로 사용하도록 함 (별도의 userId 컬럼을 추가하지 않음)
-
-### 성공메시지 resultCode 형식 통일
-
-```typescript
-// resultCode를 "200 (HttpStatus.OK)" 형식으로 통일
-{
-  "resultCode": "200 (HttpStatus.OK)",  // <-- resultCode: HttpStatus.OK
-  "resultMsg": "OK"
-  ...
-}
-```
-
-### transfer 서비스 중 quota 관련 기능 추가
-
-```typescript
-// transfer.service quoteLimitCheck 함수
-// quota의 usdAmont 가 1일 한도를 초과할 경우 에러를 반환하도록 함
-{
-  "resultCode": 400 (HttpStatus.BAD_REQUEST),
-  "resultMsg": "오늘 송금 한도 초과 입니다.",
-}
-```
-
-<br>
 <br>
 
 # Project Guide

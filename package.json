@@ -1,7 +1,9 @@
 {
-  "name": "moin-backend",
+  "name": "backend-api",
   "version": "0.0.1",
   "private": true,
+  "description": "Backend API",
+  "author": "codelab",
   "license": "UNLICENSED",
   "packageManager": "yarn@4.0.2",
   "scripts": {
