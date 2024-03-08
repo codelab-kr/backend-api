@@ -28,7 +28,7 @@ export class TransferService {
    */
   async createTransfer(data: CreateTransferRequest): Promise<any> {
     try {
-      const quoteId = +data.quoteId;
+      const quoteId = data.quoteId;
       const foundQuote = await this.quoteService.findById(quoteId);
       const { expireTime, usdAmount, userId, idType } = foundQuote;
 
@@ -111,7 +111,7 @@ export class TransferService {
    * @param {number} transferId
    * @returns {Promise<Transfer>}
    */
-  findByTransferId(transferId: number): Promise<Transfer> {
+  findByTransferId(transferId: string): Promise<Transfer> {
     return this.transferRepository.findOneBy({ id: transferId });
   }
 

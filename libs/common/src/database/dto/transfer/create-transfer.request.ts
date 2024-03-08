@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsNumberString } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTransferRequest {
-  @IsNumberString()
+  @IsNumber()
   @IsNotEmpty()
-  @ApiProperty({ example: '1' })
-  quoteId: string;
+  @ApiProperty({ example: 1 })
+  quoteId: number;
 }

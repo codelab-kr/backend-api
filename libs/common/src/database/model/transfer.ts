@@ -12,8 +12,8 @@ import { IdType, Quote } from '@app/common';
 @Entity({ name: 'transfer' })
 export class Transfer {
   @ApiProperty({ description: '송금요청 ID' })
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @ApiProperty({ description: 'USD 송금액' })
   @Column('decimal', { precision: 20, scale: 2 })
