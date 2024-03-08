@@ -6,11 +6,11 @@ import {
   Message,
   getDefaultFractionDigits,
   isEmpty,
+  Quote,
+  roundToDigits,
 } from '@app/common';
 import { FeeService } from './fee.service';
 import { DeepPartial } from 'typeorm';
-import { Quote } from '@app/common';
-import { roundToDigits } from '@app/common';
 import { QuoteRepository } from './repositories/quote.repository';
 
 @Injectable()
@@ -85,6 +85,7 @@ export class QuoteService {
         targetAmount,
       };
     } catch (error) {
+      console.error('An error occurred:', error);
       throw error;
     }
   }

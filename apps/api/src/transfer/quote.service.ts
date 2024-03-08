@@ -1,8 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { NATS_SERVICE } from '@app/common';
+import { NATS_SERVICE, CreateQuoteRequest } from '@app/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
-import { CreateQuoteRequest } from '../../../../libs/common/src/database/dto/transfer/create-quote.request';
-// import { QuoteRepository } from './repositories/quote.repository';
 
 @Injectable()
 export class QuoteService {

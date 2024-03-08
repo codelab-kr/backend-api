@@ -16,9 +16,9 @@ import {
   LocalAuthGuard,
   User,
   result,
+  LoginUserRequest,
 } from '@app/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { LoginUserRequest } from '@app/common';
 import { ConfigService } from '@nestjs/config';
 
 @Controller('user')
@@ -38,7 +38,6 @@ export class UserController {
         this.userService.createUser(createUserDto),
       );
       if (response) {
-        // res.status(HttpStatus.OK).json(result(HttpStatus.OK, 'OK'));
         result(res, HttpStatus.OK, 'OK');
       }
     } catch (error) {

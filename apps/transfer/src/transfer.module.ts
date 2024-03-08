@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TransferController } from './transfer.controller';
 import { FeeService } from './fee.service';
-import { TypeOrmExModule, SqlModule, HttpModule } from '@app/common';
 import { ConfigModule } from '@nestjs/config';
 import { QuoteService } from './quote.service';
-import * as Joi from 'joi';
 import { TransferService } from './transfer.service';
 import { FeeRepository } from './repositories/fee.repository';
 import { QuoteRepository } from './repositories/quote.repository';
 import { TransferRepository } from './repositories/transfer.repository';
+import { TypeOrmExModule, SqlModule, HttpModule } from '@app/common';
+import * as Joi from 'joi';
 
 @Module({
   imports: [

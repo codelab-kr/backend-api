@@ -17,12 +17,6 @@ import * as Joi from 'joi';
     }),
     TypeOrmExModule.forCustomRepository([UserRepository]),
     SqlModule,
-    // TypeOrmModule.forRoot({
-    //   type: 'sqlite',
-    //   database: ':memory:',
-    //   entities: [__dirname + '/**/*.entity{.ts,.js}'],
-    //   synchronize: true,
-    // }),
   ],
   controllers: [UserController],
   providers: [UserService],

@@ -45,6 +45,7 @@ export class TransferService {
       const savedTransfer = await this.transferRepository.save(requestDto);
       return savedTransfer;
     } catch (error) {
+      console.log('error', error);
       throw error;
     }
   }
@@ -101,6 +102,7 @@ export class TransferService {
         history,
       };
     } catch (error) {
+      console.log('error', error);
       throw error;
     }
   }
@@ -123,16 +125,7 @@ export class TransferService {
    * @returns {Promise<any>}
    */
   private async findCountAndSum(userId: string, date?: Date): Promise<any> {
-    const { usdSum, count } = await this.transferRepository
-      .createQueryBuilder('transfer')
-      .where(
-        'transfer.user_id = :userId AND DATE(transfer.requestedDate) = DATE(COALESCE(:date, date("now")))', // for sqlite
-        { userId, date },
-      )
-      .select('SUM(transfer.usdAmount)', 'usdSum')
-      .addSelect('COUNT(transfer.id)', 'count')
-      .getRawOne();
-    return { usdSum, count };
+    return this.transferRepository.findCountAndSum(userId, date);
   }
 
   /**
@@ -143,24 +136,6 @@ export class TransferService {
    * @returns {Promise<any>}
    */
   async findTransferHistory(userId: string, date?: Date): Promise<any[]> {
-    return this.transferRepository
-      .createQueryBuilder('transfer')
-      .leftJoinAndSelect('quote', 'quote', 'transfer.quoteId = quote.id')
-      .where(
-        'transfer.user_id = :userId AND DATE(transfer.requestedDate) = DATE(COALESCE(:date, date("now")))', // for sqlite
-        { userId, date },
-      )
-      .select([
-        'quote.source_amount as sourceAmount',
-        'quote.fee as fee',
-        'quote.usd_exchange_rate as usdExchangeRate',
-        'quote.usd_amount as usdAmount',
-        'quote.target_currency as targetCurrency',
-        'quote.exchange_rate as exchangeRate',
-        'quote.target_amount as targetAmount',
-        'transfer.requested_date as requestedDate',
-      ])
-      .orderBy('transfer.requestedDate', 'ASC')
-      .getRawMany();
+    return this.transferRepository.findTransferHistory(userId, date);
   }
 }

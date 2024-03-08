@@ -106,7 +106,7 @@ export class TransferController {
           HttpStatus.UNAUTHORIZED,
         );
       }
-      const { id: userId, name } = req?.user;
+      const { id: userId, name } = req?.user || {};
       const response = await lastValueFrom(
         await this.transferService.findTransferList({
           userId,
