@@ -1,4 +1,4 @@
-# About Project
+# About Backend API Project
 
 ## 특징
 
@@ -64,11 +64,11 @@
 
 <br>
 
-## 1. Unzip the repository
+## 1. clone the repository
 
 ```bash
-# Unzip the project
-unzip project.zip
+git clone https://github.com/code-lab-kr/backend-api
+cd backend-api
 
 # .env
 cp ./.env.example ./.env
