@@ -14,8 +14,8 @@ import {
   AuthGuard,
   CurrentUser,
   LocalAuthGuard,
-  User,
   result,
+  CreateUserRequest,
   LoginUserRequest,
 } from '@app/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -32,7 +32,10 @@ export class UserController {
   @Post('signup')
   @ApiOperation({ summary: '회원가입' })
   @ApiOkResponse({ description: 'User created' })
-  async CreateUser(@Res() res: Response, @Body() createUserDto: User) {
+  async CreateUser(
+    @Res() res: Response,
+    @Body() createUserDto: CreateUserRequest,
+  ) {
     try {
       const response = await lastValueFrom(
         this.userService.createUser(createUserDto),
@@ -58,7 +61,7 @@ export class UserController {
   ) {
     try {
       if (req?.errorData) {
-        throw req.errorData.error;
+        throw req.errorData.response ?? req.errorData.error;
       }
       res.cookie('Authentication', user?.access_token, {
         maxAge: this.configService.get('EXPIRESIN'),

@@ -2,6 +2,7 @@
 export * from './auth/guards/local-auth.guard';
 export * from './auth/guards/auth.guard';
 export * from './auth/utils/current-user';
+export * from './auth/payloads/taken-payload';
 export * from './auth/jwt.auth.module';
 
 // database - sql
@@ -50,4 +51,5 @@ export * from './database/model/fee';
 export * from './database/dto/transfer/create-quote.request';
 export * from './database/dto/transfer/create-transfer.request';
 export * from './database/dto/transfer/find-transfers.request';
+export * from './database/dto/user/create-user.request';
 export * from './database/dto/user/login-user.request';

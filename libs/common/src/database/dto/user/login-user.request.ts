@@ -5,7 +5,7 @@ export class LoginUserRequest {
   @IsEmail()
   @IsNotEmpty()
   @ApiProperty({ example: 'test@test.com' })
-  id: string;
+  email: string;
 
   @IsString()
   @IsNotEmpty()

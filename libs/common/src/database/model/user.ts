@@ -4,7 +4,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IdType } from '../enum/idType';
 import { ApiProperty } from '@nestjs/swagger';
@@ -13,11 +13,15 @@ import { IdValueLength } from '../../decorator/idValueLength';
 
 @Entity({ name: 'user' })
 export class User {
+  @PrimaryGeneratedColumn('uuid')
+  @ApiProperty()
+  id: string;
+
   @IsNotEmpty()
   @IsEmail()
   @ApiProperty({ example: 'test@test.com' })
-  @PrimaryColumn()
-  id: string;
+  @Column()
+  email: string;
 
   @IsNotEmpty()
   @IsString()

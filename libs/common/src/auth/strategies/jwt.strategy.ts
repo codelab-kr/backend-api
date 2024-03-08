@@ -6,10 +6,6 @@ import { NATS_SERVICE } from '../../constant/services';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 
-export interface TokenPayload {
-  id: string;
-}
-
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
@@ -36,9 +32,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       const userFound = await lastValueFrom(
         this.natsService.send({ cmd: 'validateUser' }, payload),
       );
-
       if (!userFound) {
-        // return null;
         throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

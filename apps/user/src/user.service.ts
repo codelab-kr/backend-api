@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { User, Message } from '@app/common';
+import { CreateUserRequest, Message, User } from '@app/common';
 import { UserRepository } from './repositories/user.repository';
 import * as bcrypt from 'bcryptjs';
 
@@ -7,10 +7,10 @@ import * as bcrypt from 'bcryptjs';
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async createUser(request: User) {
+  async createUser(request: CreateUserRequest): Promise<Partial<User>> {
     try {
       const existUser = await this.userRepository.findOneBy({
-        id: request.id,
+        email: request.email,
       });
       if (existUser) {
         throw new HttpException(Message.BAD_PARAMETERS, HttpStatus.BAD_REQUEST);
@@ -34,13 +34,27 @@ export class UserService {
   async validateUser(data: any) {
     try {
       // for jwt strategy
-      if (!data.id) {
+      if (data.id) {
+        const { id } = data;
+        const user = await this.userRepository.findOneBy({ id });
+        if (!user) {
+          throw new HttpException(
+            Message.INVAILID_TOKEN,
+            HttpStatus.UNAUTHORIZED,
+          );
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password: hashedPassword, idValue, ...userInfo } = user;
+        return userInfo;
+      }
+
+      // for local strategy
+      if (!data.email || !data.password) {
         return null;
       }
-      const { id } = data;
-      const user = await this.userRepository.findOneBy({ id });
+      const { email, password } = data;
+      const user = await this.userRepository.findOneBy({ email });
       if (!user) {
-        // return null;
         throw new HttpException(
           Message.INVAILID_TOKEN,
           HttpStatus.UNAUTHORIZED,
@@ -48,18 +62,9 @@ export class UserService {
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password: hashedPassword, idValue, ...userInfo } = user;
-
-      // for local strategy
-      if (data.password) {
-        const password = data.password;
-        const passwordIsVal = await bcrypt.compare(password, hashedPassword);
-        if (!passwordIsVal) {
-          // return null;
-          throw new HttpException(
-            Message.BAD_PARAMETERS,
-            HttpStatus.BAD_REQUEST,
-          );
-        }
+      const passwordIsVal = await bcrypt.compare(password, hashedPassword);
+      if (!passwordIsVal) {
+        throw new HttpException(Message.BAD_PARAMETERS, HttpStatus.BAD_REQUEST);
       }
       return userInfo;
     } catch (error) {

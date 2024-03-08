@@ -45,7 +45,6 @@ export class TransferService {
       const savedTransfer = await this.transferRepository.save(requestDto);
       return savedTransfer;
     } catch (error) {
-      console.log('error', error);
       throw error;
     }
   }
@@ -102,7 +101,6 @@ export class TransferService {
         history,
       };
     } catch (error) {
-      console.log('error', error);
       throw error;
     }
   }

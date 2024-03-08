@@ -1,14 +1,14 @@
 import {
   IsDateString,
-  IsEmail,
   IsNotEmpty,
   IsOptional,
   IsString,
+  IsUUID,
 } from 'class-validator';
 
 export class FindTransfersRequest {
   @IsNotEmpty()
-  @IsEmail()
+  @IsUUID()
   userId: string;
 
   @IsNotEmpty()

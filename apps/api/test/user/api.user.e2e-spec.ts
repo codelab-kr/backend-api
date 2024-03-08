@@ -82,7 +82,7 @@ describe('User - /user (e2e)', () => {
   it('Login [POST /user/login]', async () => {
     return request(app.getHttpServer())
       .post('/user/login')
-      .send({ id: 'user', password: '1234' } as any)
+      .send({ email: 'user@gmail.com', password: '1234' } as any)
       .expect(400)
       .then(({ body }) => {
         expect(body).toEqual(

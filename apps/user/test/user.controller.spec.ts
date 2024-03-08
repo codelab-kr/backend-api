@@ -1,9 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { User } from '@app/common';
+import { User, LoginUserRequest, CreateUserRequest } from '@app/common';
 import { UserController } from '../src/user.controller';
 import { UserService } from '../src/user.service';
 import { userStub } from './stubs/user.stub';
-import { LoginUserRequest } from '../src/dtos/login-user.request';
 
 jest.mock('../src/user.service');
 
@@ -29,7 +28,7 @@ describe('UserController', () => {
   describe('createUser', () => {
     describe('when createUser is called', () => {
       let user: Partial<User>;
-      let request: User;
+      let request: CreateUserRequest;
 
       beforeEach(async () => {
         request = userStub();

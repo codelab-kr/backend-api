@@ -2,7 +2,8 @@ import { User, IdType } from '@app/common';
 
 export const userStub = (): User => {
   return {
-    id: 'test1@test.com',
+    id: '960f06ee-d26a-47df-aa1f-c98dc720546f',
+    email: 'test1@test.com',
     password: 'abcd1234',
     name: 'test1',
     idType: IdType.REG_NO,

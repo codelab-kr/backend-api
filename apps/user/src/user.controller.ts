@@ -1,12 +1,7 @@
 import { Controller, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
-import { User } from '@app/common';
-import { LoginUserRequest } from './dtos/login-user.request';
-
-export interface TokenPayload {
-  id: string;
-}
+import { TokenPayload, LoginUserRequest, CreateUserRequest } from '@app/common';
 
 @Controller('user')
 export class UserController {
@@ -14,7 +9,7 @@ export class UserController {
 
   @Post()
   @MessagePattern({ cmd: 'createUser' })
-  async createUser(@Payload() data: User) {
+  async createUser(@Payload() data: CreateUserRequest) {
     try {
       return await this.userService.createUser(data);
     } catch (error) {

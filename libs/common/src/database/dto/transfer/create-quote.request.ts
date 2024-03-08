@@ -1,4 +1,4 @@
-import { IsEmail, IsEnum, IsNotEmpty, IsNumberString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumberString, IsUUID } from 'class-validator';
 import { CurrencyCode, IdType } from '@app/common';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -13,9 +13,9 @@ export class CreateQuoteRequest {
   @ApiProperty({ example: 100000 })
   amount: number;
 
-  @IsEmail()
+  @IsUUID()
   @IsNotEmpty()
-  @ApiProperty({ example: 'test@test.com' })
+  @ApiProperty({ example: '960f06ee-d26a-47df-aa1f-c98dc720546f' })
   userId: string;
 
   @IsNotEmpty()
