@@ -67,7 +67,7 @@
 ## 1. clone the repository
 
 ```bash
-git clone https://github.com/code-lab-kr/backend-api
+git clone https://github.com/codelab-kr/backend-api
 cd backend-api
 
 # .env
